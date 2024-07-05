@@ -12,8 +12,6 @@
  
     export let index;
 
-
-
     let path, dom;
     let w = 600;
     let h = 600;
