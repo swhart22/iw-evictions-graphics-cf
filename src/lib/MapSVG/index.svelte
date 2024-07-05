@@ -142,6 +142,7 @@
         activeWard = {};
     }
 
+    $: console.log(w, h);
 
 </script>
 <div class="map-scroll-container">
