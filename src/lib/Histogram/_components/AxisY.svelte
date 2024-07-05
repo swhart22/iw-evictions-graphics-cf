@@ -39,6 +39,8 @@
   
     /** @type {Number} [charPixelWidth=7.25] - Used to calculate the widest label length to offset labels. Adjust if the automatic tick length doesn't look right because you have a bigger font (or just set `tickMarkLength` to a pixel value). */
     export let charPixelWidth = 7.25;
+
+    export let title = '';
   
     $: isBandwidth = typeof $yScale.bandwidth === 'function';
   
@@ -97,8 +99,12 @@
           text-anchor={labelPosition === 'above' ? 'start' : 'end'}
           dy='{dy + (labelPosition === 'above' || (snapBaselineLabel === true && tickValPx === maxTickValPx) ? -3 : 4)}'
         >{format(tick)}</text>
+        
       </g>
     {/each}
+    {#if title !== ''} 
+      <text>{title}</text>
+    {/if}
   </g>
   
   <style>
@@ -115,6 +121,7 @@
   
     .tick text {
       fill: #666;
+      
     }
   
     .tick.tick-0 line {

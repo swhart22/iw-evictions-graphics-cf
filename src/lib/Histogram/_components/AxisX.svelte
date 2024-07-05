@@ -36,6 +36,8 @@
   
     /** @type {Number} [dy=12] - Any optional value passed to the `dy` attribute on the text label. */
     export let dy = 12;
+    
+    export let title = '';
   
     function textAnchor(i, sl) {
       if (sl === true) {
@@ -105,11 +107,19 @@
         >
       </g>
     {/each}
+    {#if title !== ''} 
+      <text transform="translate({$width / 2}, {$height + 35})" class="title">{title}</text>
+    {/if}
   </g>
   
   <style>
     .tick {
-      font-size: 11px;
+      font-size: 12px;
+    }
+    .title {
+      font-size: 13px;
+      text-anchor: middle;
+      fill: #666;
     }
   
     line,

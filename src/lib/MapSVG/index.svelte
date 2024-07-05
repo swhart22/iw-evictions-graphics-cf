@@ -1,24 +1,22 @@
 <script>
-    import { onMount, tick } from "svelte";
+    import { onMount } from 'svelte';
     import boundaries from "./layers/community_areas.topo.json";
     import { mesh, feature } from "topojson-client";
     import { geoPath, geoMercator } from "d3-geo";
-    import { scaleLinear } from "d3-scale";
-    import { extent } from "d3-array";
     import wards from "./layers/wards.topo.json";
     import buildings from "./chronic_buildings_FINAL.csv";
     import evictions from "./chronic_evictions.csv";
-    import tracts from "./layers/tracts.topo.json";
     import roads from "./layers/roads.topo.json";
-    import poverty from "./layers/poverty.csv";
-    import Scroller from "@sveltejs/svelte-scroller";
-    import PovertyHistogram from "../PovertyHistogram/index.svelte";
-    import RaceHistogram from "../RaceHistogram/index.svelte";
+    import Tooltip from '../Tooltip/index.svelte';
 
-  
-    let index, offset, progress;
+ 
+    export let index;
 
-    let w, h, path, ctx, off, dom, canvas;
+
+
+    let path, dom;
+    let w = 600;
+    let h = 600;
 
     // geography stuff
     const chicago = feature(boundaries, boundaries.objects.community_areas);
@@ -31,20 +29,7 @@
     const wardBounds = mesh(wards, wards.objects.wards);
     const wardFeatures = feature(wards, wards.objects.wards);
 
-    const tractFeatures = feature(tracts, tracts.objects.tracts);
     let projection = geoMercator();
-
-    // math stuff
-    const povertyExtent = extent(
-        poverty,
-        (d) => +d.pct_poverty,
-    );
-    const midpoint = (0.5 - povertyExtent[0]) / 2 + 0.5;
-    const povertyScale = scaleLinear()
-        .domain([0, 0.25, 0.5])
-        .range(["#c9e6ff", "#868cd3", "#810f7c"])
-        .clamp(true);
-    // console.log(tractFeatures);
 
     let wardEls, wardBoundEls, roadEls, buildingEls, evictionEls;
     onMount(async () => {
@@ -70,22 +55,23 @@
     $: {
         if (dom) {
             if (index === 0) {
-                showEls([roadEls]);
-                hideEls([wardEls, wardBoundEls, buildingEls, evictionEls]);
+                showEls([roadEls, buildingEls]);
+                hideEls([wardEls, wardBoundEls,  evictionEls]);
             }
             if (index === 1) {
                 showEls([roadEls, wardEls, wardBoundEls, buildingEls]);
                 hideEls([evictionEls]);
             }
             if (index === 2) {
+                // buildings = buildings.sort((a, b) => a.);
                 showEls([
                     roadEls,
                     wardEls,
                     wardBoundEls,
                     buildingEls,
-                    evictionEls,
+                    
                 ]);
-                hideEls([]);
+                hideEls([evictionEls]);
             }
             if (index === 3) {
                 showEls([
@@ -95,13 +81,44 @@
                     buildingEls,
                     evictionEls,
                 ]);
-                hideEls([]);
+                hideEls([evictionEls]);
             }
             if (index === 4) {
+                showEls([
+                    roadEls,
+                    wardEls,
+                    wardBoundEls,
+                    buildingEls,
+                    evictionEls,
+                ]);
+                hideEls([]);
+            }
+            if (index === 5) {
+                showEls([
+                    roadEls,
+                    wardEls,
+                    wardBoundEls,
+                    buildingEls,
+                    evictionEls,
+                ]);
+                hideEls([]);
+            }
+            if (index === 6) {
+                showEls([
+                    roadEls,
+                    wardEls,
+                    wardBoundEls,
+                    buildingEls,
+                    evictionEls,
+                ]);
+                hideEls([]);
             }
         }
     }
 
+    let tooltipDisplay = 'none';
+    let activeWard = {};
+    let activeWardBounds = [];
    
     function showEls(arr) {
         arr.forEach(( el) => {
@@ -114,168 +131,129 @@
             el.style.display = "none";
         });
     }
+    function hover (e, ward, bounds) {
+        tooltipDisplay = 'block';
+        activeWard = ward;
+        activeWardBounds = bounds;
+        // console.log(e, ward);
+    }
+    function mouseout () {
+        tooltipDisplay = 'none';
+        activeWard = {};
+    }
+
+
 </script>
-
-<Scroller top={0} bottom={1} bind:index bind:offset bind:progress>
-    <div slot="background">
-        <div class="map-scroll-container">
-            <div
-                class="map-container"
-                bind:clientWidth={w}
-                bind:clientHeight={h}
-            >
-                <svg width={w} height={h}>
-                    {#if w}
-                        <clipPath id="chicago">
-                            <path
-                                d={path(chicagoBoundary)}
-                                stroke="#666"
-                                stroke-width="1"
-                                fill="none"
-                            >
-                            </path>
-                        </clipPath>
-                        <g class="wards" clip-path="url(#chicago)">
-                            {#each wardFeatures.features as ward}
-                                <path
-                                    d={path(ward)}
-                                    fill="#fff"
-                                    class="ward-shape"
-                                >
-                                </path>
-                            {/each}
-                        </g>
-                        <g class="roads" clip-path="url(#chicago)">
-                            <path
-                                d={path(roadLines)}
-                                stroke="#eaeaea"
-                                stroke-width="0.5"
-                                fill="none"
-                            >
-                            </path>
-                        </g>
+<div class="map-scroll-container">
+    <div
+        class="map-container"
+        bind:clientWidth={w}
+        bind:clientHeight={h}
+    >
+        <svg width={w} height={h}>
+            {#if w}
+                <clipPath id="chicago">
+                    <path
+                        d={path(chicagoBoundary)}
+                        stroke="#666"
+                        stroke-width="1"
+                        fill="none"
+                    >
+                    </path>
+                </clipPath>
+                <g class="wards" clip-path="url(#chicago)">
+                    {#each wardFeatures.features as ward}
+                        {@const bounds = path.bounds(ward)}
                         <path
-                            class="ward-boundaries wards"
-                            clip-path="url(#chicago)"
-                            d={path(wardBounds)}
-                            fill="none"
-                            stroke="#666"
-                            stroke-width="1px"
+                            d={path(ward)}
+                            fill="#fff"
+                            class="ward-shape"
+                            on:mouseover={(e) => hover(e, ward, bounds)}
+                            on:mouseout={mouseout}
                         >
                         </path>
+                    {/each}
+                </g>
+                <g class="roads" clip-path="url(#chicago)">
+                    <path
+                        d={path(roadLines)}
+                        stroke="#eaeaea"
+                        stroke-width="0.5"
+                        fill="none"
+                    >
+                    </path>
+                </g>
+                <path
+                    class="ward-boundaries wards"
+                    clip-path="url(#chicago)"
+                    d={path(wardBounds)}
+                    fill="none"
+                    stroke="#666"
+                    stroke-width="1px"
+                >
+                </path>
 
-                        <g class="buildings">
-                            {#each buildings as b}
-                                {@const r = 2};
-                                {@const coords = projection([
-                                    b.LONGITUDE,
-                                    b.LATITUDE,
-                                ])};
-                                <circle
-                                    cx={coords[0]}
-                                    cy={coords[1]}
-                                    {r}
-                                    fill="#FFC612"
-                                    stroke="#FFC612"
-                                    class="building"
-                                ></circle>
-                            {/each}
-                        </g>
-                        <g class="evictions">
-                            {#each evictions as e}
-                                {@const r = 2};
-                                {@const coords = projection([
-                                    e["LONGITUDE.x"],
-                                    e["LATITUDE.x"],
-                                ])};
-                                <circle
-                                    cx={coords[0]}
-                                    cy={coords[1]}
-                                    {r}
-                                    fill="#C62C2C"
-                                    stroke="#C62C2C"
-                                    stroke-width="1"
-                                    class="eviction"
-                                ></circle>
-                            {/each}
-                        </g>
-                        <path
-                            d={path(chicagoBoundary)}
-                            stroke="#333"
+                <g class="buildings">
+                    
+                    {#each buildings as b, i}
+                        {@const r = 2};
+                        {@const coords = projection([
+                            b.LONGITUDE,
+                            b.LATITUDE,
+                        ])};
+                        <circle
+                            cx={coords[0]}
+                            cy={coords[1]}
+                            {r}
+                            fill="#FFC612"
+                            stroke="#FFC612"
+                            class="building"
+                        ></circle>
+                    {/each}
+                    
+                </g>
+                <g class="evictions">
+                    {#each evictions as e}
+                        {@const r = 2};
+                        {@const coords = projection([
+                            e["LONGITUDE.x"],
+                            e["LATITUDE.x"],
+                        ])};
+                        <circle
+                            cx={coords[0]}
+                            cy={coords[1]}
+                            {r}
+                            fill="#C62C2C"
+                            stroke="#C62C2C"
                             stroke-width="1"
-                            fill="none"
-                        >
-                        </path>
-                    {/if}
-                </svg>
-            </div>
+                            class="eviction"
+                        ></circle>
+                    {/each}
+                </g>
+                <path
+                    d={path(chicagoBoundary)}
+                    stroke="#333"
+                    stroke-width="1"
+                    fill="none"
+                    class="chicago-boundary"
+                >
+                </path>
+            {/if}
+        </svg>
+        <div class="labels">
+            {#if w}
+            <Tooltip 
+                {tooltipDisplay} 
+                {activeWard}
+                {w}
+                {h}
+                {activeWardBounds}
+            />
+            {/if}
         </div>
     </div>
-
-    <div slot="foreground">
-        <section class="map-section">
-            <div class="content">
-                <p>
-                    Injustice Watch found <span class="buildings"
-                        >2,XXX buildings</span
-                    > with xyz code violations across the city of Chicago.
-                </p>
-            </div>
-        </section>
-        <section class="map-section">
-            <div class="content">
-                <p>Wards with buildings</p>
-            </div>
-        </section>
-        <section class="map-section">
-            <div class="content">
-                <p>Wards with buildings with evictions</p>
-            </div>
-        </section>
-        <section class="map-section">
-            <div class="content">
-                <p>Buildings with poverty</p>
-                <div class="histogram-container poverty">
-                    <PovertyHistogram />
-                </div>
-            </div>
-        </section>
-        <section class="map-section">
-            <div class="content">
-                <p>Buildings with pct. black</p>
-                <div class="histogram-container race">
-                    <RaceHistogram />
-                </div>
-            </div>
-        </section>
-        <section class="map-section">
-            <div class="content">
-                <p>More content</p>
-            </div>
-        </section>
-    </div>
-</Scroller>
-
-<style lang="scss">
-    section.map-section {
-        height: 100vh;
-        display: flex;
-        align-items: center;
-        &:not(:last-child) {
-            margin-bottom: 50vh;
-        }
-
-        .content {
-            margin-left: 60vw;
-        }
-    }
-
-    section p {
-        font-family: "sofia-pro", sans-serif;
-    }
-    .histogram-container {
-        width: 300px;
-    }
+</div>
+<style lang='scss'>
     .map-scroll-container {
         width: 50%;
         height: 100vh;
@@ -293,10 +271,32 @@
         top: 0;
         left: 0;
     }
-
+    .ward-shape {
+        cursor: crosshair;
+        &:hover {
+            fill: #eaeaea;
+        }
+    }
     .building,
     .eviction {
         fill-opacity: 0.6;
         /* mix-blend-mode: multiply; */
+    }
+    .building {
+        
+        &.highlighted {
+            opacity: 1;
+        }
+    }
+    .chicago-boundary, .roads, .buildings, .ward-boundaries {
+        pointer-events:none;
+    }
+    .labels {
+        width: 100%; 
+        height: 100%;
+        pointer-events:none;
+        position: absolute;
+        top:0px;
+        left:0px;
     }
 </style>

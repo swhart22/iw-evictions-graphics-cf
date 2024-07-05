@@ -30,7 +30,15 @@
       d.x = +d.x
     });
 
-    const formatLabelY = d => format(`~s`)(d);
+    const formatLabelY = (d, i) => {
+      const formatted = format(`~s`)(d);
+      
+      if (d === 200) {
+        return `${formatted} buildings`;
+      } else {
+        return formatted;
+      }
+    };
   
     const stackedData = stack(data, seriesNames);
   </script>
@@ -63,11 +71,13 @@
                 }
               }
             }
+            title="% neighborhood low income"
         />
         <AxisY
           ticks={3}
           gridlines={true}
           format={formatLabelY}
+          
         />
         <ColumnStacked/>
       </Svg>
@@ -80,7 +90,7 @@
       height: 180px;
     }
     
-    :global(.axis .tick text) {
+    :global(.axis text) {
         font-family: 'sofia-pro', 'sans-serif';
     }
   </style>

@@ -30,9 +30,19 @@
       d.x = +d.x
     });
 
-    const formatLabelY = d => format(`~s`)(d);
+    const formatLabelY = (d, i) => {
+      const formatted = format(`~s`)(d);
+      
+      if (d === 600) {
+        return `${formatted} buildings`;
+      } else {
+        return formatted;
+      }
+    };
   
     const stackedData = stack(data, seriesNames);
+
+   
   </script>
   
   <div class="chart-container">
@@ -63,11 +73,13 @@
                 }
               }
             }
+            title="% Black"
         />
         <AxisY
           ticks={3}
           gridlines={true}
           format={formatLabelY}
+          
         />
         <ColumnStacked/>
       </Svg>

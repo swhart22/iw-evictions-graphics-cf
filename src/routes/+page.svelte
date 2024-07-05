@@ -1,5 +1,5 @@
 <script>
-    import MapSVG from "$lib/MapSVG/index.svelte";
+    import MapScroll from "$lib/MapScroll/index.svelte";
 </script>
 
-<MapSVG />
+<MapScroll />
