@@ -122,13 +122,17 @@
    
     function showEls(arr) {
         arr.forEach(( el) => {
-            el.style.display = "block";
+            if (el) {
+                el.style.display = "block";
+            }
         });
     }
 
     function hideEls(arr) {
         arr.forEach(( el) => {
-            el.style.display = "none";
+            if (el) {
+                el.style.display = "none";
+            }
         });
     }
     function hover (e, ward, bounds) {
@@ -195,7 +199,6 @@
                 </path>
 
                 <g class="buildings">
-                    
                     {#each buildings as b, i}
                         {@const r = 2};
                         {@const coords = projection([
