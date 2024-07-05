@@ -171,7 +171,7 @@
                         {@const bounds = path.bounds(ward)}
                         <path
                             d={path(ward)}
-                            fill="#fff"
+                            fill="green"
                             class="ward-shape"
                             on:mouseover={(e) => hover(e, ward, bounds)}
                             on:mouseout={mouseout}
