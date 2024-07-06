@@ -12,9 +12,8 @@
  
     export let index;
 
-    let path, dom;
-    let w = 600;
-    let h = 600;
+    let path, dom, w, h;
+
 
     // geography stuff
     const chicago = feature(boundaries, boundaries.objects.community_areas);
@@ -144,8 +143,6 @@
         activeWard = {};
     }
 
-    $: console.log(w, h);
-
 </script>
 <div class="map-scroll-container">
     <div
@@ -169,7 +166,7 @@
                         {@const bounds = path.bounds(ward)}
                         <path
                             d={path(ward)}
-                            fill="purple"
+                            fill="#fff"
                             class="ward-shape"
                             on:mouseover={(e) => hover(e, ward, bounds)}
                             on:mouseout={mouseout}
