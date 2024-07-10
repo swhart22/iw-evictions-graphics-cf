@@ -8,9 +8,11 @@
     import evictions from "./chronic_evictions.csv";
     import roads from "./layers/roads.topo.json";
     import Tooltip from '../Tooltip/index.svelte';
+    import properties from './layers/lowenstein_properties.csv';
 
  
     export let index;
+    export let landlords;
 
     let path, dom, w, h;
 
@@ -144,7 +146,6 @@
     }
 
 </script>
-<div class="map-scroll-container">
     <div
         class="map-container"
         bind:clientWidth={w}
@@ -183,41 +184,62 @@
                     >
                     </path>
                 </g>
+                {#if !landlords}
                 <path
                     class="ward-boundaries wards"
                     clip-path="url(#chicago)"
                     d={path(wardBounds)}
                     fill="none"
-                    stroke="#666"
+                    stroke="#999"
                     stroke-width="1px"
                 >
                 </path>
-
-                <g class="buildings">
-                    {#each buildings as b, i}
-                        {@const r = 2};
+                
+                    <g class="buildings">
+                        {#each buildings as b, i}
+                            {@const r = 2};
+                            {@const coords = projection([
+                                b.LONGITUDE,
+                                b.LATITUDE,
+                            ])};
+                            <circle
+                                cx={coords[0]}
+                                cy={coords[1]}
+                                {r}
+                                fill="#FFC612"
+                                stroke="#FFC612"
+                                class="building"
+                            ></circle>
+                        {/each}
+                        
+                    </g>
+                    <g class="evictions">
+                        {#each evictions as e}
+                            {@const r = 2};
+                            {@const coords = projection([
+                                e["LONGITUDE.x"],
+                                e["LATITUDE.x"],
+                            ])};
+                            <circle
+                                cx={coords[0]}
+                                cy={coords[1]}
+                                {r}
+                                fill="#C62C2C"
+                                stroke="#C62C2C"
+                                stroke-width="1"
+                                class="eviction"
+                            ></circle>
+                        {/each}
+                    </g>
+                {/if}
+                {#if landlords}
+                    <g class="landlords">
+                        {#each properties as p}
+                        {@const r = 3};
                         {@const coords = projection([
-                            b.LONGITUDE,
-                            b.LATITUDE,
-                        ])};
-                        <circle
-                            cx={coords[0]}
-                            cy={coords[1]}
-                            {r}
-                            fill="#FFC612"
-                            stroke="#FFC612"
-                            class="building"
-                        ></circle>
-                    {/each}
-                    
-                </g>
-                <g class="evictions">
-                    {#each evictions as e}
-                        {@const r = 2};
-                        {@const coords = projection([
-                            e["LONGITUDE.x"],
-                            e["LATITUDE.x"],
-                        ])};
+                            p.X,
+                            p.Y,
+                        ])}
                         <circle
                             cx={coords[0]}
                             cy={coords[1]}
@@ -225,10 +247,11 @@
                             fill="#C62C2C"
                             stroke="#C62C2C"
                             stroke-width="1"
-                            class="eviction"
+                            class="lowenstein"
                         ></circle>
-                    {/each}
-                </g>
+                        {/each}
+                    </g>
+                {/if}
                 <path
                     d={path(chicagoBoundary)}
                     stroke="#333"
@@ -251,12 +274,8 @@
             {/if}
         </div>
     </div>
-</div>
+
 <style lang='scss'>
-    .map-scroll-container {
-        width: 50%;
-        height: 100vh;
-    }
     .map-container {
         position: relative;
         max-width: 1000px;
@@ -277,7 +296,7 @@
         }
     }
     .building,
-    .eviction {
+    .eviction, .lowenstein {
         fill-opacity: 0.6;
         /* mix-blend-mode: multiply; */
     }

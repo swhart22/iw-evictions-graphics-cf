@@ -13,7 +13,9 @@
 
 <Scroller top={0} bottom={1} bind:index bind:offset bind:progress>
     <div slot="background">
-        <MapSVG  {index} />
+        <div class="map-scroll-container">
+            <MapSVG  {index} />
+        </div>
     </div>
 
     <div slot="foreground">
@@ -75,6 +77,10 @@
 </Scroller>
 
 <style lang="scss">
+    .map-scroll-container {
+        width: 50%;
+        height: 100vh;
+    }
     section.map-section {
         height: 100vh;
         display: flex;
