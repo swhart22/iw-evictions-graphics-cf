@@ -11,9 +11,18 @@
 <BodyText />
 <Linkout />
 
-<style lang='scss'>
-    :global(body) {
-        background-color: #ffffff !important;
-    }
+<style lang='scss' global>
+  
+:global(body) {
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    
+    
+}
+:global(html) {
+    font-size: 20px;
+}
+  
+
 </style>
 

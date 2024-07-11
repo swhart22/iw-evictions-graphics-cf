@@ -9,9 +9,9 @@
         width: 100%;
         margin: 1rem auto;
         p {
-            font-size: 1.2rem;
+            font-size: 1em;
             font-family: 'freight-text-pro', serif;
-            line-height: 28px;
+            line-height: 1.4;
         }
     }
 </style>
