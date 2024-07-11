@@ -1,10 +1,24 @@
 <script>
     import Byline from '../Byline/index.svelte';
     const authors = [
-        {'name': 'Alejandra Cancino', 'src': 'https://www.injusticewatch.org/wp-content/uploads/cropped-cropped-Alejandra-scaled-1-80x80.jpg'},
-        {'name': 'Maya Dukmasova', 'src': 'https://www.injusticewatch.org/wp-content/uploads/cropped-IMG_3758-scaled-1-80x80.jpg'},
-        {'name': 'Forest Gregg', 'src': 'https://secure.gravatar.com/avatar/?s=80&d=mm&r=g'},
-        {'name': 'Alex Richards', 'src': 'https://secure.gravatar.com/avatar/?s=80&d=mm&r=g'}
+        {'name': 'Alejandra Cancino', 
+            'src': 'https://www.injusticewatch.org/wp-content/uploads/cropped-cropped-Alejandra-scaled-1-80x80.jpg',
+            'authorUrl':'https://www.injusticewatch.org/author/acancino/'
+        },
+        {'name': 'Maya Dukmasova', 
+            'src': 'https://www.injusticewatch.org/wp-content/uploads/cropped-IMG_3758-scaled-1-80x80.jpg',
+            'authorUrl':'https://www.injusticewatch.org/author/mdukmasova/'
+        },
+            
+        {'name': 'Forest Gregg', 
+            'src': 'https://secure.gravatar.com/avatar/?s=80&d=mm&r=g',
+            'authorUrl':''
+        },
+            
+        {'name': 'Alex Richards', 
+            'src': 'https://secure.gravatar.com/avatar/?s=80&d=mm&r=g',
+            'authorUrl':''
+        }
     ];
 
     const contributingReporters = [

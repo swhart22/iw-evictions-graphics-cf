@@ -16,15 +16,33 @@
     <span class="byline">
         {leadin}
         {#if authors.length === 1} 
-            <strong>{authors[0].name}</strong>
+            <strong>
+                {#if authors[0].authorUrl && authors[0].authorUrl !== ''}
+                    <a href={authors[0].authorUrl}>{authors[0].name}</a>
+                {:else}
+                    {authors[0].name}
+                {/if} 
+            </strong>
         {:else}
             {#each authors as author, i}
                 {#if i < authors.length - 2} 
-                <strong>{author.name}</strong>,&nbsp;
+                    {#if author.authorUrl && author.authorUrl !== ''}
+                        <strong><a href={author.authorUrl}>{author.name}</a></strong>,&nbsp;
+                    {:else}
+                        <strong>{author.name}</strong>,&nbsp;
+                    {/if}
                 {:else if i === authors.length - 2}
-                <strong>{author.name}</strong> and&nbsp;
+                    {#if author.authorUrl && author.authorUrl !== ''}
+                        <strong><a href={author.authorUrl}>{author.name}</a></strong> and&nbsp;
+                    {:else}
+                        <strong>{author.name}</strong> and&nbsp;
+                    {/if}
                 {:else if i === authors.length - 1}
-                <strong>{author.name}</strong>
+                    {#if author.authorUrl && author.authorUrl !== ''}
+                        <strong><a href={author.authorUrl}>{author.name}</a></strong>
+                    {:else}
+                        <strong>{author.name}</strong>
+                    {/if}
                 {/if}
             {/each}
         {/if}
@@ -61,6 +79,10 @@
     }
     .byline {
         text-align: center;
+        a {
+            text-decoration: none;
+            color: #333;
+        }
     }
     @media only screen and (max-width: 600px) {
        .avatar {

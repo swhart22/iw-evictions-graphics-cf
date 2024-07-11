@@ -16,11 +16,15 @@
 :global(body) {
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
+    background-color: #ffffff;
+    color: #333;
+
     
     
 }
 :global(html) {
     font-size: 20px;
+    
 }
   
 
