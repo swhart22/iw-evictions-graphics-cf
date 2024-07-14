@@ -27,14 +27,15 @@
     ]
 </script>
 <div class="header-container">
-    
-    <img src="/streetscape/header.jpg">
+    <div class="img-container">
+        <img src="/streetscape/header.jpg">
+    </div>
     <div class='entry-header'>
         <h1 class="entry-title entry-title--with-subtitle">So you live in a bad building</h1>
         <div class="newspack-post-subtitle">
             <p>There are 2,654 properties with a history of chronic, serious code violations in Chicago. Can their owners be forced to fix them? </p>
         </div>
-        <Byline leadin="by" {authors}/>
+        <Byline leadin="by" {authors} avatars={true}/>
     </div>
 </div>
 <style lang='scss'>
@@ -60,9 +61,17 @@
             text-align: center;
             margin: 0 0 0.5em;
         }
-        img {
+        .img-container {
+            max-width: 1200px;
             width: 100%;
             margin: 0rem auto;
+            position:relative;
+            display: flex;
+            justify-content: center;
+            img {
+                // margin: 0rem auto;
+                // width: 100%;
+            }
             // max-height: 500px;
         }
         // max-height: 100vh;

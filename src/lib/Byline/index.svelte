@@ -1,18 +1,21 @@
 <script>
     export let authors;
     export let leadin;
+    export let avatars = false;
 </script>
 
 <div class="entry-meta">
-    {#each authors as author}
-        <span class="avatar">
-            {#if author.src && author.src !== ''}
-                <img src={author.src} alt="Avatar photo of {author.name}"/>
-            {:else}
-                <span class="avi-placeholder"></span>
-            {/if}
-        </span>
-    {/each}
+    {#if avatars}
+        {#each authors as author}
+            <span class="avatar">
+                {#if author.src && author.src !== ''}
+                    <img src={author.src} alt="Avatar photo of {author.name}"/>
+                {:else}
+                    <span class="avi-placeholder"></span>
+                {/if}
+            </span>
+        {/each}
+    {/if}
     <span class="byline">
         {leadin}
         {#if authors.length === 1} 
@@ -53,8 +56,9 @@
     .entry-meta {
         display: flex;
         flex-wrap: wrap;
+        align-items: center;
         font-family: 'sofia-pro', sans-serif;
-        font-size: 16px;
+        font-size: 0.8rem;
         justify-content: center;
     }
     .avatar {
@@ -79,6 +83,7 @@
     }
     .byline {
         text-align: center;
+        margin-bottom:0.5rem;
         a {
             text-decoration: none;
             color: #333;

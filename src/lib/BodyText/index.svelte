@@ -12,6 +12,12 @@
             font-size: 1em;
             font-family: 'freight-text-pro', serif;
             line-height: 1.4;
+            
+        }
+    }
+
+    :global(.body-text) {
+        p {
             a {
                 color: #FF2300;
                 background: linear-gradient(0deg, rgb(246 244 235 / 0%) 4px, rgba(234,109,89,0.7) 4px, rgba(234,109,89,0.7) 5px, rgba(251,50,18,0.15) 5px, rgba(251,50,18,0.15) 96%, rgb(246 244 235 / 0%) 96%);

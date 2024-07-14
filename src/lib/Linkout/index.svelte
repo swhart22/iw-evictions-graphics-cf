@@ -71,9 +71,24 @@
                 <h3>Three courses of action:</h3>
                 <p class="call-to-action">Click or tap a building to explore a particular option.</p>
             </div>
-            <div class="building-label withhold-rent">Withhold rent</div>
-            <div class="building-label call-the-city">Call the city</div>
-            <div class="building-label sue-the-landlord">Sue the landlord</div>
+            <div class="building-label withhold-rent">
+                <p>Option 1:</p>
+                <h4>
+                Withhold rent
+                </h4>
+            </div>
+            <div class="building-label call-the-city">
+                <p>Option 2:</p>
+                <h4>
+                Call the city
+                </h4>
+            </div>
+            <div class="building-label sue-the-landlord">
+                <p>Option 3:</p>
+                <h4>
+                Sue the landlord
+                </h4>
+            </div>
         </div>
     </div>  
 </div>
@@ -91,6 +106,8 @@
             top: 0px;
             left: 0px;
             h3 {
+                font-family: "meursault-variable", serif;
+                    font-variation-settings: "wght" 500, "wdth" 10;
                 font-size: 3rem;
                 margin: 0;
                 line-height: 3rem;
@@ -123,12 +140,21 @@
                 text-align:center;
                 top: 0px;
                 left:0px;
-                font-size: 16px;
-                font-family: 'sofia-pro', sans-serif;
-                font-weight: 800;
-                text-transform: uppercase;
-                letter-spacing: 1px;
+                h4 {
+                    font-size: 2rem;
+                    font-family: "meursault-variable", serif;
+                    font-variation-settings: "wght" 500, "wdth" 10;
+                    // text-transform: uppercase;
+                    letter-spacing: 1px;
+                    margin: 0;
+                }
                 
+                p {
+                    font-family: 'sofia-pro', sans-serif;
+                    text-transform: uppercase;
+                    font-size: 0.8rem;
+                    font-weight: 800;
+                }
                 padding: 0px 5px 1px;
                 border-radius: 2px;
                 color: #525252;
@@ -142,11 +168,11 @@
                 }
                 &.call-the-city {
                     top: 46%;
-                    left: 31%;
+                    left: 30%;
                 }
                 &.sue-the-landlord {
-                    top: 10%;
-                    left: 65%;
+                    top: 12%;
+                    left: 62%;
                 }
             }
         }
