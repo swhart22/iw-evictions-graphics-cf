@@ -3,13 +3,20 @@
     import BodyText from '$lib/BodyText/index.svelte';
     import MapScroll from "$lib/MapScroll/index.svelte";
     import Linkout from '$lib/Linkout/index.svelte';
+    import Page from '$lib/page.json';
+
 </script>
 
-<Header />
-<BodyText />
-<MapScroll />
-<BodyText />
-<Linkout />
+<Header {Page} />
+{#each Page.blocks as block}
+    {#if block.Type === 'text'}
+        <BodyText {block} />
+    {:else if block.Type === 'graphic' && block.Graphic === 'map'}
+        <MapScroll />
+    {:else if block.Type === 'graphic' && block.Graphic === 'linkout'}
+        <Linkout {block} />
+    {/if}
+{/each}
 
 <style lang='scss' global>
   

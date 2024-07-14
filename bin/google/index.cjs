@@ -65,13 +65,13 @@ function getNewToken(oAuth2Client, callback) {
 async function main(auth) {
   const client = google.docs({version: 'v1', auth: auth});
   const params = {
-    documentId: '1XY55-0D2bw2sZS1ssMxI7BdStdKTAWP2RxJRDld9hNI'
+    documentId: '1H-XDzU28yPxi0dhaK_Y2kChQMh0FJHLddHyoxe9ThYs'
   }
   
   const {data} = await client.documents.get(params);
   const parsed = await parseGoogle(data);
 
-  fs.writeFile('src/page.json', JSON.stringify(parsed), (err) => {
+  fs.writeFile('src/lib/page.json', JSON.stringify(parsed), (err) => {
     if (err) throw err;
   })
 }
