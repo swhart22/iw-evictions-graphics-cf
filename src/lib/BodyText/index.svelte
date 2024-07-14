@@ -2,7 +2,6 @@
     import { marked } from 'marked';
 
     export let block;
-    console.log(block);
 </script>
 
 <section class="body-text">
@@ -17,7 +16,7 @@
 
     :global(.body-text p) {
         font-size: 1em;
-        font-family: 'freight-text-pro', serif;
+        font-family: 'Freight Text Pro', serif;
         line-height: 1.4;
         
     }

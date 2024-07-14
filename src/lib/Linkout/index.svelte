@@ -99,24 +99,23 @@
         max-width: 1100px;
         margin: 1rem auto;
         .leadin {
-            font-family: 'sofia-pro', sans-serif;
+            font-family: 'Sofia Pro', sans-serif;
         }
         .chatter {
             position: absolute;
             top: 0px;
             left: 0px;
             h3 {
-                font-family: "meursault-variable", serif;
-                    font-variation-settings: "wght" 500, "wdth" 10;
+                font-family: "Meursault", serif;
                 font-size: 3rem;
                 margin: 0;
                 line-height: 3rem;
             }
             p {
-                font-family: 'freight-text-pro', serif;
+                font-family: 'Freight Text Pro', serif;
             }
             .call-to-action {
-                font-family: 'sofia-pro', sans-serif;
+                font-family: 'Sofia Pro', sans-serif;
                 font-style: italic;
             }
         }
@@ -142,15 +141,14 @@
                 left:0px;
                 h4 {
                     font-size: 2rem;
-                    font-family: "meursault-variable", serif;
-                    font-variation-settings: "wght" 500, "wdth" 10;
+                    font-family: "Meursault", serif;
                     // text-transform: uppercase;
                     letter-spacing: 1px;
                     margin: 0;
                 }
                 
                 p {
-                    font-family: 'sofia-pro', sans-serif;
+                    font-family: 'Sofia Pro', sans-serif;
                     text-transform: uppercase;
                     font-size: 0.8rem;
                     font-weight: 800;

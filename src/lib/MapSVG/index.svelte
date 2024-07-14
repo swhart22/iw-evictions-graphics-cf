@@ -34,10 +34,10 @@
     onMount(async () => {
         dom = true;
         wardEls = document.querySelector(".wards");
-        wardBoundEls = document.querySelector(".ward-boundaries");
+        // wardBoundEls = document.querySelector(".ward-boundaries");
         roadEls = document.querySelector(".roads");
-        buildingEls = document.querySelector(".buildings");
-        evictionEls = document.querySelector(".evictions");
+        // buildingEls = document.querySelector(".buildings");
+        // evictionEls = document.querySelector(".evictions");
     });
 
     $: {
@@ -175,7 +175,7 @@
                         </path>
                     {/each}
                 </g>
-                <g class="roads" clip-path="url(#chicago)">
+                <g class="roads" clip-path="url(#chicago)" bind:this={roadEls} >
                     <path
                         d={path(roadLines)}
                         stroke="#eaeaea"
@@ -192,10 +192,11 @@
                     fill="none"
                     stroke="#999"
                     stroke-width="1px"
+                    bind:this={wardBoundEls}
                 >
                 </path>
                 
-                    <g class="buildings">
+                    <g class="buildings" bind:this={buildingEls}>
                         {#each buildings as b, i}
                             {@const r = 2};
                             {@const coords = projection([
@@ -213,7 +214,7 @@
                         {/each}
                         
                     </g>
-                    <g class="evictions">
+                    <g class="evictions" bind:this={evictionEls}>
                         {#each evictions as e}
                             {@const r = 2};
                             {@const coords = projection([

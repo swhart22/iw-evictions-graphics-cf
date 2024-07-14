@@ -48,15 +48,14 @@
             margin: 0rem auto;
         }
         .newspack-post-subtitle {
-            font-family: 'freight-text-pro', serif;
+            font-family: 'Freight Text Pro', serif;
             line-height: 1.4;
             text-align: center;
             margin-top: 1rem;
             margin-bottom: 1.3em;
         }
         h1 {
-            font-family: "meursault-variable", serif;
-            font-variation-settings: "wght" 200, "wdth" 10;
+            font-family: "Meursault Condensed", serif;
             line-height: 1.2;
             text-align: center;
             margin: 0 0 0.5em;

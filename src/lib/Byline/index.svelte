@@ -57,7 +57,7 @@
         display: flex;
         flex-wrap: wrap;
         align-items: center;
-        font-family: 'sofia-pro', sans-serif;
+        font-family: 'Sofia Pro', sans-serif;
         font-size: 0.8rem;
         justify-content: center;
     }

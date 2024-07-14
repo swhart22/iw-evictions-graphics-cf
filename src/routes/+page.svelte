@@ -3,10 +3,12 @@
     import BodyText from '$lib/BodyText/index.svelte';
     import MapScroll from "$lib/MapScroll/index.svelte";
     import Linkout from '$lib/Linkout/index.svelte';
+    import Nav from '$lib/Nav/index.svelte';
     import Page from '$lib/page.json';
+    
 
 </script>
-
+<Nav />
 <Header {Page} />
 {#each Page.blocks as block}
     {#if block.Type === 'text'}
