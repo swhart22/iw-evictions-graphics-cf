@@ -97,7 +97,8 @@
           {y}
           dx={dx + (labelPosition === 'even' ? -3 : 0)}
           text-anchor={labelPosition === 'above' ? 'start' : 'end'}
-          dy='{dy + (labelPosition === 'above' || (snapBaselineLabel === true && tickValPx === maxTickValPx) ? -3 : 4)}'
+          dy='{dy - 3}'
+          class="t-{format(tick)}"
         >{format(tick)}</text>
         
       </g>
@@ -121,7 +122,8 @@
   
     .tick text {
       fill: #666;
-      
+      text-anchor: start !important;
+      z-index: 100;
     }
   
     .tick.tick-0 line {

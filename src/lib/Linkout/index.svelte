@@ -7,7 +7,7 @@
     import { faGavel } from '@fortawesome/free-solid-svg-icons';
     export let block;
 
-    console.log(block);
+    // console.log(block);
 
     onMount(() => {
         const withholdRent = document.querySelector('#withhold-rent polygon');

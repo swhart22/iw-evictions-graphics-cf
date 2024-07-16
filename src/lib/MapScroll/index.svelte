@@ -3,11 +3,11 @@
     import Scroller from "@sveltejs/svelte-scroller";
     import PovertyHistogram from "../PovertyHistogram/index.svelte";
     import RaceHistogram from "../RaceHistogram/index.svelte";
+    import { marked } from 'marked'
 
   
+    export let block;
     let index, offset, progress;
-
-  
     
 </script>
 
@@ -19,67 +19,35 @@
     </div>
 
     <div slot="foreground">
+        {#each block.graphicBlocks as gblock}
         <section class="map-section">
             <div class="content">
-                <p>
-                    Injustice Watch found <span class="buildings-span"
-                        >2,650 buildings</span
-                    > with xyz code violations across the city of Chicago.
-                </p>
+                {@html marked(gblock.Text)}
+                {#if gblock.Chart && gblock.Chart === 'income'}
+                    <div class="histogram-container income">
+                        <PovertyHistogram />
+                    </div>
+                {:else if gblock.Chart && gblock.Chart === 'race'}
+                    <div class="histogram-container race">
+                        <RaceHistogram />
+                    </div>
+                {/if}
             </div>
+            
         </section>
-        <section class="map-section">
-            <div class="content">
-                <p>Each of Chicago’s 50 <span class="wards-span">wards</span> had at least 3 such buildings, with the most found in Ward 6, which contained 184 buildings.
-                </p>
-                <p><em>Hover over or tap on a ward to see more details.</em></p>
-            </div>
-        </section>
-        <section class="map-section">
-            <div class="content">
-                <p>TKTK buildings met this criteria (data point here.)</p>
-            </div>
-        </section>
-        <section class="map-section">
-            <div class="content">
-                <p>And TKTK buildings met this other criteria (data point here.)</p>
-            </div>
-        </section>
-        <section class="map-section">
-            <div class="content">
-                <p><span class="evictions-span"
-                    >1,736 buildings</span> evicted tenants over the timespan studied.</p>
-            </div>
-        </section>
-        <section class="map-section">
-            <div class="content">
-                <p>The buildings were found overwhelmingly in neighborhoods with high percentages of population considered <strong>low income</strong> by the city of Chicago (household income under $TK,TKT).</p>
-                <h3>Most buildings in low income neighborhoods</h3>
-                <div class="histogram-container poverty">
-                    <PovertyHistogram />
-                </div>
-            </div>
-        </section>
-        <section class="map-section">
-            <div class="content">
-                <h3>Most buildings in majority Black neighborhoods</h3>
-                <div class="histogram-container race">
-                    <RaceHistogram />
-                </div>
-            </div>
-        </section>
-        <section class="map-section">
-            <div class="content">
-                <p>More content</p>
-            </div>
-        </section>
+        {/each}
+        
     </div>
 </Scroller>
 
 <style lang="scss">
+    $break: 780px;
     .map-scroll-container {
         width: 50%;
         height: 100vh;
+        @media screen and (max-width:$break) {
+            width: 100%;
+        }
     }
     section.map-section {
         height: 100vh;
@@ -91,15 +59,22 @@
 
         .content {
             margin-left: 60vw;
-            max-width: 450px;
-            p {
-                font-size: 1.2rem;
+            max-width: 380px;
+            width: 100%;
+            @media screen and (max-width:$break) {
+                width: 100%;
+                margin: 0rem auto;
+                background: rgba(255,255,255,1);
+                padding: 0.5rem 1rem 1rem;
+                border: 1px solid #eaeaea;
             }
         }
     }
 
-    section p {
+    :global(.map-section p) {
         font-family: "Sofia Pro", sans-serif;
+        font-size: 1rem;
+        line-height: 1.3;
     }
     .histogram-container {
         width: 100%;
@@ -108,12 +83,13 @@
         justify-content: center;
     }
     
-    :global(h3) {
+    :global(.map-section h3) {
         font-family: "Sofia Pro", sans-serif;
         font-weight: 800;
         font-size: 1.2rem;
         margin: 0;
         margin-bottom: 0.4rem;
+        text-align: left;
     }
     :global(.buildings-span){
         background-color: rgba(255, 198, 18, 1);
@@ -138,5 +114,8 @@
 
     :global(svelte-scroller-foreground) {
         pointer-events: none;
+    }
+    :global(.map-section .content) {
+        pointer-events: all;
     }
 </style>

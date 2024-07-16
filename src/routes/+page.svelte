@@ -16,7 +16,7 @@
     {#if block.Type === 'text'}
         <BodyText {block} />
     {:else if block.Type === 'graphic' && block.Graphic === 'map'}
-        <MapScroll />
+        <MapScroll {block} />
     {:else if block.Type === 'graphic' && block.Graphic === 'linkout'}
         <Linkout {block} />
     {:else if block.Type === 'skip-to-bottom'}

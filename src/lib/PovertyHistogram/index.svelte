@@ -45,7 +45,7 @@
   
   <div class="chart-container">
     <LayerCake
-        padding={{ top: 0, right: 0, bottom: 20, left: 20 }}
+        padding={{ top: 0, right: 0, bottom: 20, left: 0 }}
         x={d => d.data[xKey]}
         y={yKey}
         z={zKey}
@@ -77,7 +77,6 @@
           ticks={3}
           gridlines={true}
           format={formatLabelY}
-          
         />
         <ColumnStacked/>
       </Svg>
@@ -91,6 +90,6 @@
     }
     
     :global(.axis text) {
-        font-family: 'sofia-pro', 'sans-serif';
+        font-family: 'Sofia Pro', 'sans-serif';
     }
   </style>
