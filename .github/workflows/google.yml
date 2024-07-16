@@ -7,27 +7,9 @@ jobs:
       deployments: write
     name: Fetch latest text from Google
     steps:
-      - name: Create env
-        run: echo "${{ secrets.ENV }}" > .env
       - name: Fetch latest Google text
-        run: node --env-file=.env ./bin/google/index.cjs
-  deploy:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      deployments: write
-    name: Deploy to Cloudflare Pages
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-      # Run your project's build step
-      - name: Build
-        run: npm install && npm run build
-      - name: Publish
-        uses: cloudflare/pages-action@v1
-        with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          projectName: iw-evictions-graphics-cf # e.g. 'my-project'
-          directory: .svelte-kit/cloudflare # e.g. 'dist'
-          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+        env: # Or as an environment variable
+          GOOGLE_OAUTH_CLIENT_ID: ${{ secrets.GOOGLE_OAUTH_CLIENT_ID }}
+          GOOGLE_OAUTH_CONSUMER_SECRET: ${{ secrets.GOOGLE_OAUTH_CONSUMER_SECRET }}
+          GOOGLE_OAUTH_REDIRECT_URI: ${{ secrets.GOOGLE_OAUTH_REDIRECT_URI }}
+        run: cd bin
