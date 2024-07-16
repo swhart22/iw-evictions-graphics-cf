@@ -1,6 +1,6 @@
 <script>
     import SocialWidgets from '../SocialWidgets/index.svelte';
-    import SubscribeButton from '../SubscribeButton/index.svelte';
+    import DonateButton from '../DonateButton/index.svelte';
 </script>
 <nav
       class="navbar is-fixed-top"
@@ -15,13 +15,17 @@
         >
           <img
             src="./images/iw_logo.svg"
-            style='height: 38px;'
+            
             alt={"Aria label here"}
+            class="custom-logo"
           />
         </a>
+        <p class="site-identity">Nonprofit newsroom investigating the Cook County court system
+
+        </p>
       </div>
       <div class="navbar-menu navbar-end">
-        <SubscribeButton />
+        <DonateButton />
         <SocialWidgets
           className="navbar-item"
           style={{ paddingTop: 0, paddingBottom: 0 }}
@@ -31,7 +35,7 @@
     </nav>
 
     <style lang='scss'>
-        $tablet: 700px;
+        $tablet: 785px;
         
         $iw-orange: #EA6D59;
         $font-sofia-pro: "Sofia Pro", "Open Sans", sans-serif;
@@ -44,14 +48,26 @@
             min-height: 4rem;
             display: flex;
             align-items: center;
-            justify-content: space-between;
+            justify-content: space-around;
+            padding-bottom: 25px;
+            padding-top: 25px;
+            @media screen and (max-width: 800px) {
+                padding-top: 0px;
+                padding-bottom: 0px;
+
+            }
+            @media screen and (max-width: $tablet) {
+                justify-content: space-between;
+                padding-left: 20px;
+                padding-right: 20px;
+            }
         }
 
 .navbar-item {
-  padding: 0.5rem 2rem;
+//   padding: 0.5rem 2rem;
   
   @media screen and (max-width: 500px) {
-    padding: 0.5rem 0.75rem;
+    // padding: 0.5rem 0.75rem;
   }
 }
 
@@ -90,4 +106,29 @@
     width: 50px;
   }
 }
+.navbar-brand {
+    flex-basis: 40%;
+    
+}
+.custom-logo {
+    // height: 70px;
+    // max-height: 192px;
+    // max-width: 600px;
+    width: 429px;
+    @media screen and (max-width: $tablet) {
+        width: 175px;
+        margin-top: 5px;
+    }
+}
+.site-identity {
+    font-family: 'Sofia Pro', sans-serif;
+    font-size: 0.75rem;
+    color: #82766E;
+    margin: 0;
+    @media screen and (max-width: $tablet) {
+        display: none;
+    }
+}
+
+
     </style>

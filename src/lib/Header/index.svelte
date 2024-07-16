@@ -40,7 +40,6 @@
 </div>
 <style lang='scss'>
     .header-container {
-    
         width: 100%;
         .entry-header {
             max-width:960px;
@@ -67,6 +66,7 @@
             position:relative;
             display: flex;
             justify-content: center;
+            overflow-x: hidden;
             img {
                 // margin: 0rem auto;
                 // width: 100%;

@@ -2,15 +2,20 @@ const fs = require('fs');
 const readline = require('readline');
 const {google} = require('googleapis');
 const {parseGoogle} = require('./parse.cjs');
+const argv = require('minimist')(process.argv.slice(2));
+
 // const {docToArchieML} = require('@newswire/doc-to-archieml');
 
 
 const path = require('path');
 
 //Mostly from these docs, but changed to google DOCS https://developers.google.com/sheets/api/quickstart/nodejs
-const client_id = process.env.GOOGLE_OAUTH_CLIENT_ID;
-const client_secret = process.env.GOOGLE_OAUTH_CONSUMER_SECRET;
-const redirect_uri = process.env.GOOGLE_OAUTH_REDIRECT_URI;
+
+  const client_id = process.env.GOOGLE_OAUTH_CLIENT_ID;
+  const client_secret = process.env.GOOGLE_OAUTH_CONSUMER_SECRET;
+  const redirect_uri = process.env.GOOGLE_OAUTH_REDIRECT_URI;
+
+  
 
 // const oauth2Client = new google.auth.OAuth2(client_id, client_secret);
 const SCOPES = ['https://www.googleapis.com/auth/drive',

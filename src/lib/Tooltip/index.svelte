@@ -32,7 +32,7 @@
         p {
             line-height: 1.2;
             margin: 0;
-            font-family: "sofia-pro", sans-serif;
+            font-family: "Sofia Pro", sans-serif;
             font-size: 0.9rem;
             &.ward-title {
                 font-weight: 700;

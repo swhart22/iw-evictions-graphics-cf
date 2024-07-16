@@ -17,6 +17,7 @@
             padding: 0.7em 2em 0.6em;
             text-transform: none;
             text-decoration: none;
+            margin-right: 40px;
             &:hover {
                 opacity: 0.8;
             }

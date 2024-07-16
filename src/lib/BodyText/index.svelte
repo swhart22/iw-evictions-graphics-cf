@@ -12,6 +12,9 @@
         max-width: 780px;
         width: 100%;
         margin: 1rem auto;
+        padding-left:10px;
+        padding-right: 10px;
+        box-sizing: border-box;
     }
 
     :global(.body-text p) {

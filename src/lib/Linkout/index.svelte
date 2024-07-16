@@ -1,6 +1,13 @@
 <script>
     import LinkoutSVG from './linkout.svelte';
     import { onMount } from 'svelte';
+    import Fa from 'svelte-fa';
+    import { faPhone } from '@fortawesome/free-solid-svg-icons'
+    import { faMoneyBill1 } from '@fortawesome/free-solid-svg-icons';
+    import { faGavel } from '@fortawesome/free-solid-svg-icons';
+    export let block;
+
+    console.log(block);
 
     onMount(() => {
         const withholdRent = document.querySelector('#withhold-rent polygon');
@@ -45,7 +52,8 @@
         
     });
     function link (el) {
-        window.location.assign(`https://google.com`);
+        const linkout = block.Links[el.slug] || 'https://google.com';
+        window.location.assign(linkout);
     }
     function moveToLink(el, href){
         
@@ -56,10 +64,11 @@
         el.parentNode.insertBefore(link, el);
         el.remove();
     }
+    let size = '1';
     
 </script>
 
-<div class="linkout-container">
+<section class="linkout-container" id="options">
     <!-- <div class="leadin">
         <p>As a tenant in a building with chronic code violations, you have</p>
     </div> -->
@@ -72,26 +81,41 @@
                 <p class="call-to-action">Click or tap a building to explore a particular option.</p>
             </div>
             <div class="building-label withhold-rent">
-                <p>Option 1:</p>
+                <Fa icon={faMoneyBill1} />
+                <p class="option">
+                    <span>
+                        Option 1:
+                    </span>
+                </p>
                 <h4>
                 Withhold rent
                 </h4>
             </div>
             <div class="building-label call-the-city">
-                <p>Option 2:</p>
+                <Fa icon={faPhone} />
+                <p class="option">
+                    <span>
+                        Option 2:
+                    </span>
+                </p>
                 <h4>
                 Call the city
                 </h4>
             </div>
             <div class="building-label sue-the-landlord">
-                <p>Option 3:</p>
+                <Fa icon={faGavel} />
+                <p class="option">
+                    <span>
+                        Option 3:
+                    </span>
+                </p>
                 <h4>
                 Sue the landlord
                 </h4>
             </div>
         </div>
     </div>  
-</div>
+</section>
 
 <style lang='scss'>
     .linkout-container {
@@ -107,16 +131,17 @@
             left: 0px;
             h3 {
                 font-family: "Meursault", serif;
-                font-size: 3rem;
+                // font-size: 3rem;
                 margin: 0;
                 line-height: 3rem;
+                text-align: left;
             }
             p {
                 font-family: 'Freight Text Pro', serif;
             }
             .call-to-action {
                 font-family: 'Sofia Pro', sans-serif;
-                font-style: italic;
+                // font-style: italic;
             }
         }
         .linkout-layers{
@@ -140,18 +165,20 @@
                 top: 0px;
                 left:0px;
                 h4 {
-                    font-size: 2rem;
+                    font-size: 1.4rem;
                     font-family: "Meursault", serif;
                     // text-transform: uppercase;
                     letter-spacing: 1px;
                     margin: 0;
+                    line-height: 1.2;
                 }
                 
                 p {
                     font-family: 'Sofia Pro', sans-serif;
                     text-transform: uppercase;
-                    font-size: 0.8rem;
-                    font-weight: 800;
+                    font-size: 0.7rem;
+                    font-weight: 300;
+                    margin: 0.25rem 0rem;
                 }
                 padding: 0px 5px 1px;
                 border-radius: 2px;
@@ -161,12 +188,12 @@
                 // border: 1px solid #999;
                 &.withhold-rent {
                     top: 29%;
-                    left: 10%;
+                    left: 7%;
                     // background-color: #ffc9fd;
                 }
                 &.call-the-city {
-                    top: 46%;
-                    left: 30%;
+                    top: 44%;
+                    left: 29.5%;
                 }
                 &.sue-the-landlord {
                     top: 12%;
@@ -176,7 +203,8 @@
         }
     }
     }
-    :global(.linkout-container svg) {
+  
+    :global(.linkout-container svg:not(.svelte-fa)) {
         width: 100%;
         height: 100%;
         position: absolute;

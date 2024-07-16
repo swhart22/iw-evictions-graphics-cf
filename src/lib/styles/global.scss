@@ -1,0 +1,22 @@
+h3 {
+    font-family: 'Meursault', serif;
+    text-align: center;
+    font-size: 1.8rem;
+}
+body, html {
+    // overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+}
+body {
+    position: relative;
+    width: 100%;
+}
+.full-width {
+    // width: 100vw;
+    // position: relative;
+    // left: 50%;
+    // right: 50%;
+    // margin-left: -50vw;
+    // margin-right: -50vw;
+}

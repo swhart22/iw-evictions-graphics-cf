@@ -5,6 +5,8 @@
     import Linkout from '$lib/Linkout/index.svelte';
     import Nav from '$lib/Nav/index.svelte';
     import Page from '$lib/page.json';
+    import ScrollBump from '$lib/ScrollBump/index.svelte';
+    import Footer from '$lib/Footer/index.svelte';
     
 
 </script>
@@ -17,8 +19,12 @@
         <MapScroll />
     {:else if block.Type === 'graphic' && block.Graphic === 'linkout'}
         <Linkout {block} />
+    {:else if block.Type === 'skip-to-bottom'}
+        <ScrollBump {block} />
     {/if}
 {/each}
+
+<Footer {Page} />
 
 <style lang='scss' global>
   
