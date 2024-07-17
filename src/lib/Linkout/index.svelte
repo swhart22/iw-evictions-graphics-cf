@@ -34,8 +34,7 @@
     function activeBuildingFromIndex (index) {
         if (layers && w < breakpoint) {
             const activeEl = hovers[index];
-            layers.style.transform = `translateX(${activeEl.anchor - (w / 2)}px)`;
-            // smallLink.style.transform = `translateX(${-activeEl.anchor}%)`;
+            layers.style.transform = `translateX(${transformLayers(activeEl)}px)`;
             const labels = document.querySelectorAll('.building-label');
             labels.forEach((el, i) => {
                 const classes = Array.from(el.classList);
@@ -53,6 +52,17 @@
         }
     }
 
+    function transformLayers (el) {
+        const elToCenter = el.el;
+        const elCoords = elToCenter.getBoundingClientRect();
+        const elW = elCoords.width;
+        const parent = layers;
+        const parentCoords = parent.getBoundingClientRect();
+        const elX = elCoords.x - parentCoords.x;
+        return -elX + (w / 2) - (elW / 2);
+    }
+
+   
     $: activeBuildingFromIndex(activeIndex);
 
     $: if (overflow) {
@@ -74,13 +84,13 @@
             {
                 el: withholdRent,
                 slug: 'withhold-rent',
-                anchor: 350,
+                anchor: 310,
                 title: 'Withhold rent'
             }, 
             {
                 el: callTheCity,
                 slug: 'call-the-city',
-                anchor: 150,
+                anchor: 27,
                 title: 'Call the city'
             }, 
             {
