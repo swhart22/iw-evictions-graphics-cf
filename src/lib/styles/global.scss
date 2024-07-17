@@ -1,7 +1,14 @@
+* {
+    box-sizing: border-box;
+}
+
 h3 {
     font-family: 'Meursault', serif;
     // text-align: center;
     font-size: 1.8rem;
+    @media screen and (max-width: 782px){
+        font-size: 1.26rem;
+    }
 }
 body, html {
     // overflow-x: hidden;

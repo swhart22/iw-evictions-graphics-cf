@@ -18,9 +18,13 @@
     }
 
     :global(.body-text p) {
-        font-size: 1em;
+        font-size: 1rem;
         font-family: 'Freight Text Pro', serif;
         line-height: 1.4;
+
+        @media screen and (max-width: 600px) {
+            font-size: 0.9rem;
+        }
         
     }
     :global(.body-text p a) {

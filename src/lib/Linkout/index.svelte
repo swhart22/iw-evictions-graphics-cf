@@ -2,29 +2,98 @@
     import LinkoutSVG from './linkout.svelte';
     import { onMount } from 'svelte';
     import Fa from 'svelte-fa';
-    import { faPhone } from '@fortawesome/free-solid-svg-icons'
-    import { faMoneyBill1 } from '@fortawesome/free-solid-svg-icons';
-    import { faGavel } from '@fortawesome/free-solid-svg-icons';
+    import { faPhone, faMoneyBill1, faGavel, faArrowRightLong, faArrowLeftLong } from '@fortawesome/free-solid-svg-icons'
     export let block;
 
     // console.log(block);
 
+    const breakpoint = 800;
+    let w, layers, hovers;
+    let activeIndex = 0;
+    let hoverEls = 3;
+
+
+    $: overflow = w < breakpoint; 
+
+    // $:  {
+    //     if (overflow) {
+    //         handleTranslate();
+    //     }
+    // }
+
+   
+
+    function cycle (dir) {
+        if (layers && w < breakpoint) {
+            if (dir === 'left') {
+                if (activeIndex === 0) {
+                    activeIndex = hoverEls - 1;
+                } else {
+                    activeIndex -= 1;
+                }
+                
+            } else {
+                const newInt = activeIndex + 1;
+                activeIndex = newInt % hoverEls;
+            }
+        }
+    }
+
+    function activeBuildingFromIndex (index) {
+        if (layers && w < breakpoint) {
+            const activeEl = hovers[index];
+            layers.style.transform = `translateX(${activeEl.anchor})`;
+            const labels = document.querySelectorAll('.building-label');
+            labels.forEach((el, i) => {
+                const classes = Array.from(el.classList);
+                if (classes.includes(activeEl.slug)) {
+                        el.style.display = 'block';
+                } else {
+                        el.style.display = 'none';
+                }
+            });
+        } else if (layers && w >= breakpoint) {
+            const labels = document.querySelectorAll('.building-label');
+            labels.forEach(el => el.style.display = 'block');
+            layers.style.transform = 'translateX(0px)';
+        }
+    }
+
+    $: activeBuildingFromIndex(activeIndex);
+
+    $: if (overflow) {
+        // fires only if we enter smaller size from larger size
+        activeBuildingFromIndex(0);
+    }
+
+    $: if (w >= breakpoint) {
+        activeBuildingFromIndex(0);
+    }
+
+   
     onMount(() => {
+        
         const withholdRent = document.querySelector('#withhold-rent polygon');
         const callTheCity = document.querySelector('#call-the-city polygon');
         const sueTheLandlord = document.querySelector('#sue-the-landlord polygon');
-        const hovers = [
+        hovers = [
             {
                 el: withholdRent,
-                slug: 'withhold-rent'
+                slug: 'withhold-rent',
+                anchor: '100px',
+                title: 'Withhold rent'
             }, 
             {
                 el: callTheCity,
-                slug: 'call-the-city'
+                slug: 'call-the-city',
+                anchor: '-100px',
+                title: 'Call the city'
             }, 
             {
                 el: sueTheLandlord,
-                slug: 'sue-the-landlord'
+                slug: 'sue-the-landlord',
+                anchor: '-300px',
+                title: 'Sue the landlord'
             }
         ];
 
@@ -48,6 +117,7 @@
             el.el.addEventListener('mouseover', () => hover(el));
             el.el.addEventListener('mouseout', () => mouseout(el));
             el.el.addEventListener('click', () => link(el));
+            el.el.setAttribute('tabindex', '0');
         });
         
     });
@@ -55,31 +125,52 @@
         const linkout = block.Links[el.slug] || 'https://google.com';
         window.location.assign(linkout);
     }
-    function moveToLink(el, href){
-        
-        var link = document.createElement('a');
-        link.innerHTML = el.outerHTML;
-        link.setAttribute('xlink:href', href);
-        
-        el.parentNode.insertBefore(link, el);
-        el.remove();
-    }
-    let size = '1';
+
+    // function handleTranslate () {
+    //     console.log('hey!');
+    // }
+
+    // $: if (w < breakpoint) {
+    //     handleTranslate();
+    // }
+    
     
 </script>
 
-<section class="linkout-container" id="options">
-    <!-- <div class="leadin">
-        <p>As a tenant in a building with chronic code violations, you have</p>
-    </div> -->
-    <div class="linkout-layers">
+<section class="linkout-container" id="options" bind:clientWidth={w} class:overflow={w < breakpoint} class:fullwidth={w >= breakpoint}>
+    <div class="chatter">
+        <h3>Three courses of action:</h3>
+        <p class="call-to-action">Click or tap a building to explore a particular option.</p>
+    </div>
+    <div class="controls">
+        <div class="left" 
+            on:click={() => cycle('left')} 
+            on:keypress={() => cycle('left')}
+            role="button" 
+            tabindex="0" 
+            class:display={activeIndex > 0}>
+            <Fa icon={faArrowLeftLong} />
+            {#if hovers && activeIndex > 0}
+                <p>{hovers[activeIndex - 1].title}</p>
+            {/if}
+        </div>
+        <div 
+            class="right" 
+            on:click={() => cycle('right')}
+            on:keypress={() => cycle('right')}
+            role="button" 
+            tabindex="0" 
+            class:display={activeIndex < hoverEls - 1}>
+            <Fa icon={faArrowRightLong} />
+            {#if hovers && activeIndex < hoverEls - 1}
+                <p>{hovers[activeIndex + 1].title}</p>
+            {/if}
+        </div>
+    </div>
+    <div class="linkout-layers" bind:this={layers} >
         <img src="/streetscape/linkout.jpg">
         <LinkoutSVG />
         <div class="labels">
-            <div class="chatter">
-                <h3>Three courses of action:</h3>
-                <p class="call-to-action">Click or tap a building to explore a particular option.</p>
-            </div>
             <div class="building-label withhold-rent">
                 <Fa icon={faMoneyBill1} />
                 <p class="option">
@@ -114,21 +205,22 @@
                 </h4>
             </div>
         </div>
+        
     </div>  
+    
 </section>
 
 <style lang='scss'>
     .linkout-container {
-        width: 100%;
         max-width: 1100px;
         margin: 1rem auto;
         .leadin {
             font-family: 'Sofia Pro', sans-serif;
         }
         .chatter {
-            position: absolute;
-            top: 0px;
-            left: 0px;
+            // position: absolute;
+            // top: 0px;
+            // left: 0px;
             h3 {
                 font-family: "Meursault", serif;
                 // font-size: 3rem;
@@ -141,11 +233,18 @@
             }
             .call-to-action {
                 font-family: 'Sofia Pro', sans-serif;
+                margin: 0;
+                font-size: 0.9rem;
                 // font-style: italic;
+            }
+            @media screen and (max-width: 1100px) {
+                padding-left: 5px;
+                padding-right: 5px;
             }
         }
         .linkout-layers{
             position:relative;
+            transition: transform 0.25s ease;
        
         img {
             width: 100%;
@@ -203,6 +302,66 @@
         }
     }
     }
+
+    .linkout-container.fullwidth {
+        width: 100%;
+        .controls {
+            display: none;
+        }
+        .linkout-layers {
+            transform: translateX(0px);
+        }
+    }
+
+    .linkout-container.overflow {
+        width: 100vw;
+        overflow-x: hidden;
+        .controls {
+            // position: absolute;
+            display: flex;
+            justify-content: space-between;
+            width: 100vw;
+            top: 0px;
+            left: 0px;
+            padding: 1rem 0.5rem;
+            .left, .right {
+                opacity: 0;
+                pointer-events: none;
+                display: flex;
+                flex-direction: column;
+                flex-wrap: wrap;
+                // align-items: flex-start;
+                cursor: pointer;
+
+                p {
+                    text-transform: uppercase;
+                    font-family: 'Sofia Pro', sans-serif;
+                    font-size: 0.75rem;
+                    margin: 0.25rem 0 0 0;
+                    
+                }
+                &.display {
+                    opacity: 1;
+                    pointer-events: all;
+                }
+            }
+            .left {
+                align-items: flex-start;
+            }
+            .right {
+                align-items: flex-end;
+            }
+            .right p {
+                text-align: right;
+            }
+        }
+        .linkout-layers {
+            width: 800px;
+            // transform: translateX(-250px);
+        }
+    }
+
+
   
     :global(.linkout-container svg:not(.svelte-fa)) {
         width: 100%;
@@ -210,7 +369,7 @@
         position: absolute;
         top: 0px;
         left: 0px;
-        z-index: 2;
+        
     }
     :global(.linkout-container polygon) {
         fill: #fff;
