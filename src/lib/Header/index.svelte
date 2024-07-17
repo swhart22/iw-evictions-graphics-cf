@@ -30,7 +30,7 @@
     <div class="img-container">
         <img src="/streetscape/header.jpg">
     </div>
-    <div class='entry-header'>
+    <div class='entry-header pad'>
         <h1 class="entry-title entry-title--with-subtitle">So you live in a bad building</h1>
         <div class="newspack-post-subtitle">
             <p>There are 2,654 properties with a history of chronic, serious code violations in Chicago. Can their owners be forced to fix them? </p>

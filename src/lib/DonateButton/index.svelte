@@ -25,7 +25,7 @@
             // border-radius: 4px;
             
             @media screen and (max-width: 500px) {
-                width: 50px;
+                margin-right: 0px;
             }
         }
     </style>

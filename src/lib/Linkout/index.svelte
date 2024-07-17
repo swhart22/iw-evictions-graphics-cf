@@ -8,20 +8,12 @@
     // console.log(block);
 
     const breakpoint = 800;
-    let w, layers, hovers;
+    let w, layers, hovers, smallLink;
     let activeIndex = 0;
     let hoverEls = 3;
 
 
     $: overflow = w < breakpoint; 
-
-    // $:  {
-    //     if (overflow) {
-    //         handleTranslate();
-    //     }
-    // }
-
-   
 
     function cycle (dir) {
         if (layers && w < breakpoint) {
@@ -42,7 +34,8 @@
     function activeBuildingFromIndex (index) {
         if (layers && w < breakpoint) {
             const activeEl = hovers[index];
-            layers.style.transform = `translateX(${activeEl.anchor})`;
+            layers.style.transform = `translateX(${activeEl.anchor - (w / 2)}px)`;
+            // smallLink.style.transform = `translateX(${-activeEl.anchor}%)`;
             const labels = document.querySelectorAll('.building-label');
             labels.forEach((el, i) => {
                 const classes = Array.from(el.classList);
@@ -52,6 +45,7 @@
                         el.style.display = 'none';
                 }
             });
+            smallLink.setAttribute('href', block.Links[activeEl.slug]);
         } else if (layers && w >= breakpoint) {
             const labels = document.querySelectorAll('.building-label');
             labels.forEach(el => el.style.display = 'block');
@@ -80,59 +74,57 @@
             {
                 el: withholdRent,
                 slug: 'withhold-rent',
-                anchor: '100px',
+                anchor: 350,
                 title: 'Withhold rent'
             }, 
             {
                 el: callTheCity,
                 slug: 'call-the-city',
-                anchor: '-100px',
+                anchor: 150,
                 title: 'Call the city'
             }, 
             {
                 el: sueTheLandlord,
                 slug: 'sue-the-landlord',
-                anchor: '-300px',
+                anchor: -80,
                 title: 'Sue the landlord'
             }
         ];
 
         function hover (el) {
+
+            hovers.forEach((h) => {
+                h.el.classList.remove('active');
+            })
             const text = document.querySelector(`.building-label.${el.slug}`);
             el.el.classList.add('active');
             text.classList.add('text-active');
         }
         function mouseout (el) {
-            const text = document.querySelector(`.building-label.${el.slug}`);
-            el.el.classList.remove('active');
-            text.classList.remove('text-active');
+            hovers.forEach((h) => {
+                h.el.classList.add('active');
+            })
         }
 
         // add links 
         hovers.forEach(el => {
-            // wrap each polygon in link
-            // moveToLink(el.el, `https://google.com`);
-
             // add event listeners
+            el.el.classList.add('active');
             el.el.addEventListener('mouseover', () => hover(el));
             el.el.addEventListener('mouseout', () => mouseout(el));
             el.el.addEventListener('click', () => link(el));
             el.el.setAttribute('tabindex', '0');
         });
+
+        if (w < breakpoint) {
+            activeBuildingFromIndex(0);
+        }
         
     });
     function link (el) {
-        const linkout = block.Links[el.slug] || 'https://google.com';
+        const linkout = block.Links[el.slug] || 'https://injusticewatch.org';
         window.location.assign(linkout);
     }
-
-    // function handleTranslate () {
-    //     console.log('hey!');
-    // }
-
-    // $: if (w < breakpoint) {
-    //     handleTranslate();
-    // }
     
     
 </script>
@@ -207,6 +199,7 @@
         </div>
         
     </div>  
+    <a class="small-link" bind:this={smallLink}></a>
     
 </section>
 
@@ -267,7 +260,7 @@
                     font-size: 1.4rem;
                     font-family: "Meursault", serif;
                     // text-transform: uppercase;
-                    letter-spacing: 1px;
+                    // letter-spacing: 1px;
                     margin: 0;
                     line-height: 1.2;
                 }
@@ -303,6 +296,17 @@
     }
     }
 
+    .linkout-container .small-link {
+        width: 100vw;
+        max-width: 500px;
+        height: 411px;
+        position: absolute;
+        left: 0px;
+        // background-color: red;
+        bottom: 0px;
+        // margin-top: 150px;
+    }
+
     .linkout-container.fullwidth {
         width: 100%;
         .controls {
@@ -311,11 +315,18 @@
         .linkout-layers {
             transform: translateX(0px);
         }
+        .small-link {
+            pointer-events: none;
+        }
     }
 
     .linkout-container.overflow {
         width: 100vw;
         overflow-x: hidden;
+        .small-link {
+            pointer-events: all;
+            cursor:pointer;
+        }
         .controls {
             // position: absolute;
             display: flex;
@@ -374,11 +385,12 @@
     :global(.linkout-container polygon) {
         fill: #fff;
         stroke: none;
-        opacity: 0;
+        
+        opacity: 0.3;
         
     }
     :global(polygon.active) {
-            opacity: 0.3;
+            opacity: 0;
             cursor: pointer;
     }
     :global(.text-active) {

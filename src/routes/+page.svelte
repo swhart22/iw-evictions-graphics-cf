@@ -7,7 +7,8 @@
     import Page from '$lib/page.json';
     import ScrollBump from '$lib/ScrollBump/index.svelte';
     import Footer from '$lib/Footer/index.svelte';
-    
+    import AboutTheData from '$lib/AboutTheData/index.svelte';
+    import Solutions from '$lib/Solutions/index.svelte';
 
 </script>
 <Nav />
@@ -21,6 +22,10 @@
         <Linkout {block} />
     {:else if block.Type === 'skip-to-bottom'}
         <ScrollBump {block} />
+    {:else if block.Type === 'about-the-data'}
+        <AboutTheData {block} />
+    {:else if block.Type === 'graphic' && block.Graphic === 'solutions'}
+        <Solutions {block} />
     {/if}
 {/each}
 

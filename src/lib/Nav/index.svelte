@@ -2,6 +2,7 @@
     import SocialWidgets from '../SocialWidgets/index.svelte';
     import DonateButton from '../DonateButton/index.svelte';
 </script>
+<div class="nav-pad">
 <nav
       class="navbar is-fixed-top"
       role="navigation"
@@ -33,12 +34,18 @@
         />
       </div>
     </nav>
+</div>
 
     <style lang='scss'>
         $tablet: 785px;
         
         $iw-orange: #EA6D59;
         $font-sofia-pro: "Sofia Pro", "Open Sans", sans-serif;
+        .nav-pad {
+            padding-left: 10px;
+            padding-right: 10px;
+            padding-top: 10px;
+        }
         .navbar {
             background: #F6F4EB;
             -moz-background-size: 100% 100%;
