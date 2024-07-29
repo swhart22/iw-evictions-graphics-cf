@@ -36,8 +36,8 @@
 :global(body) {
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
-    background-color: #ffffff;
-    color: #333;
+    // background-color: #635E77;
+    // color: #fff;
 
     
     

@@ -2,7 +2,7 @@
     import LinkoutSVG from './linkout.svelte';
     import { onMount } from 'svelte';
     import Fa from 'svelte-fa';
-    import { faPhone, faMoneyBill1, faGavel, faArrowRightLong, faArrowLeftLong } from '@fortawesome/free-solid-svg-icons'
+    import { faPhone, faMoneyBill1, faGavel, faArrowRightLong, faArrowLeftLong, faCity } from '@fortawesome/free-solid-svg-icons'
     export let block;
 
     // console.log(block);
@@ -120,8 +120,8 @@
         hovers.forEach(el => {
             // add event listeners
             el.el.classList.add('active');
-            el.el.addEventListener('mouseover', () => hover(el));
-            el.el.addEventListener('mouseout', () => mouseout(el));
+            // el.el.addEventListener('mouseover', () => hover(el));
+            // el.el.addEventListener('mouseout', () => mouseout(el));
             el.el.addEventListener('click', () => link(el));
             el.el.setAttribute('tabindex', '0');
         });
@@ -141,7 +141,7 @@
 
 <section class="linkout-container" id="options" bind:clientWidth={w} class:overflow={w < breakpoint} class:fullwidth={w >= breakpoint}>
     <div class="chatter">
-        <h3>Three courses of action:</h3>
+        <h3>Courses of action:</h3>
         <p class="call-to-action">Click or tap a building to explore a particular option.</p>
     </div>
     <div class="controls">
@@ -174,37 +174,38 @@
         <LinkoutSVG />
         <div class="labels">
             <div class="building-label withhold-rent">
-                <Fa icon={faMoneyBill1} />
-                <p class="option">
-                    <span>
-                        Option 1:
-                    </span>
-                </p>
+                
+                
                 <h4>
-                Withhold rent
+                <div class="number"><Fa icon={faMoneyBill1} color="#eaeaea" /></div> Withhold rent
                 </h4>
+                <p>One short sentence here leading into withhold rent story.
+                </p>
             </div>
             <div class="building-label call-the-city">
-                <Fa icon={faPhone} />
-                <p class="option">
-                    <span>
-                        Option 2:
-                    </span>
-                </p>
+               
                 <h4>
-                Call the city
+                    <div class="number"><Fa icon={faPhone} color="#eaeaea" /></div> Call the city
                 </h4>
+                <p>One short sentence here leading into withhold rent story.
+                </p>
             </div>
             <div class="building-label sue-the-landlord">
-                <Fa icon={faGavel} />
-                <p class="option">
-                    <span>
-                        Option 3:
-                    </span>
-                </p>
+                
+                
                 <h4>
-                Sue the landlord
+                    <div class="number"><Fa icon={faGavel} color="#eaeaea" /></div> Sue the landlord
                 </h4>
+                <p>One short sentence here leading into withhold rent story.
+                </p>
+            </div>
+            <div class="building-label solutions">
+                
+                <h4>
+                    <div class="number"><Fa icon={faCity} color="#eaeaea" /></div> Solutions
+                </h4>
+                <p>One short sentence here leading into withhold rent story.
+                </p>
             </div>
         </div>
         
@@ -214,9 +215,12 @@
 </section>
 
 <style lang='scss'>
+    $iw-orange: #EA6D59;
+    $shadow: #544D6F;
     .linkout-container {
-        max-width: 1100px;
-        margin: 1rem auto;
+        // max-width: 1100px;
+        margin: 1rem 0rem auto;
+        margin-bottom: -10px !important;
         .leadin {
             font-family: 'Sofia Pro', sans-serif;
         }
@@ -224,6 +228,8 @@
             // position: absolute;
             // top: 0px;
             // left: 0px;
+            max-width: 760px;
+            margin: 1rem auto;
             h3 {
                 font-family: "Meursault", serif;
                 // font-size: 3rem;
@@ -263,9 +269,17 @@
             left: 0px;
             .building-label {
                 position: absolute;
-                text-align:center;
+                // text-align:center;
                 top: 0px;
                 left:0px;
+                max-width: 280px;
+                p, h4 {
+                    text-shadow: 1px 1px 2px $shadow,
+                    -1px 1px 2px $shadow,
+                    1px -1px 2px $shadow,
+                    -1px -1px 2px $shadow;
+                   
+                }
                 h4 {
                     font-size: 1.4rem;
                     font-family: "Meursault", serif;
@@ -273,37 +287,65 @@
                     // letter-spacing: 1px;
                     margin: 0;
                     line-height: 1.2;
+                    color: #fff;
                 }
                 
                 p {
                     font-family: 'Sofia Pro', sans-serif;
-                    text-transform: uppercase;
+                    // text-transform: uppercase;
                     font-size: 0.7rem;
                     font-weight: 300;
                     margin: 0.25rem 0rem;
+                    color: #fff;
+                    
                 }
                 padding: 0px 5px 1px;
                 border-radius: 2px;
-                color: #525252;
+                             // border: 2px solid #3d3741;
+                // background-color: rgba(61, 55, 65, .4);
+                // padding: 1rem 0.5rem 0.5rem;
 
                
                 // border: 1px solid #999;
                 &.withhold-rent {
                     top: 29%;
-                    left: 7%;
+                    left: 1%;
                     // background-color: #ffc9fd;
                 }
                 &.call-the-city {
-                    top: 44%;
-                    left: 29.5%;
+                    top: 29%;
+                    left: 20%;
                 }
                 &.sue-the-landlord {
-                    top: 12%;
-                    left: 62%;
+                    top: 17%;
+                    left: 42%;
+                }
+                &.solutions {
+                    top: 33%;
+                    left: 73%;
                 }
             }
         }
     }
+    }
+    .number {
+        width: 40px;
+        height: 40px;
+        display: inline-flex;
+        justify-content: center;
+        align-items:center;
+        color: #fff;
+        border: 1px solid #fff;
+        font-size: 1rem;
+        border-radius: 50%;
+        background-color: $iw-orange;
+        margin-top: -20px;
+        margin-right: 5px;
+        font-weight: 800;
+        // box-shadow: 1px 1px 2px #fff,
+        // -1px 1px 2px #fff,
+        // 1px -1px 2px #fff,
+        // -1px -1px 2px #fff;
     }
 
     .linkout-container .small-link {

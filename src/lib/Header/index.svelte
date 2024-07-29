@@ -45,6 +45,8 @@
             max-width:960px;
             width: 100%;
             margin: 0rem auto;
+            // margin-top: -200px;
+            // z-index: 2;
         }
         .newspack-post-subtitle {
             font-family: 'Freight Text Pro', serif;
@@ -60,14 +62,16 @@
             margin: 0 0 0.5em;
         }
         .img-container {
-            max-width: 1200px;
+            // max-width: 1200px;
             width: 100%;
             margin: 0rem auto;
             position:relative;
             display: flex;
             justify-content: center;
             overflow-x: hidden;
+            // z-index: 1;
             img {
+                width:100%;
                 // margin: 0rem auto;
                 // width: 100%;
             }

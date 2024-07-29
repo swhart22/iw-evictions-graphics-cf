@@ -32,7 +32,7 @@
   <style lang='scss'>
     $tablet: 700px;
     .site-footer {
-        background-color: #3d3741;
+        background-color: #232529;
         padding: 30px 20px 40px;
         color: white;
         font-size: .8rem;

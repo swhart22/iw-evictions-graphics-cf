@@ -1,0 +1,12 @@
+{
+"type": "FeatureCollection",
+"name": "cutpoints",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:EPSG::3857" } },
+"features": [
+{ "type": "Feature", "properties": { "MINX": -16.93285, "MINY": 64.98793, "MAXX": -16.52842, "MAXY": 65.14541, "CNTX": -16.730635, "CNTY": 65.06667, "AREA": 0.063689636399997196, "PERIM": 1.12382, "HEIGHT": 0.15747999999999251, "WIDTH": 0.40443, "vertex_index": 0, "vertex_part": 0, "vertex_part_ring": 0, "vertex_part_index": 0, "distance": 0.0, "angle": 135.0 }, "geometry": { "type": "Point", "coordinates": [ -1884956.239678882760927, 9605192.937270149588585 ] } },
+{ "type": "Feature", "properties": { "MINX": -16.93285, "MINY": 64.98793, "MAXX": -16.52842, "MAXY": 65.14541, "CNTX": -16.730635, "CNTY": 65.06667, "AREA": 0.063689636399997196, "PERIM": 1.12382, "HEIGHT": 0.15747999999999251, "WIDTH": 0.40443, "vertex_index": 1, "vertex_part": 0, "vertex_part_ring": 0, "vertex_part_index": 1, "distance": 45020.941661523888, "angle": 45.0 }, "geometry": { "type": "Point", "coordinates": [ -1839935.298017358873039, 9605192.937270149588585 ] } },
+{ "type": "Feature", "properties": { "MINX": -16.93285, "MINY": 64.98793, "MAXX": -16.52842, "MAXY": 65.14541, "CNTX": -16.730635, "CNTY": 65.06667, "AREA": 0.063689636399997196, "PERIM": 1.12382, "HEIGHT": 0.15747999999999251, "WIDTH": 0.40443, "vertex_index": 2, "vertex_part": 0, "vertex_part_ring": 0, "vertex_part_index": 2, "distance": 86605.791221382329, "angle": 315.0 }, "geometry": { "type": "Point", "coordinates": [ -1839935.298017358873039, 9646777.786830008029938 ] } },
+{ "type": "Feature", "properties": { "MINX": -16.93285, "MINY": 64.98793, "MAXX": -16.52842, "MAXY": 65.14541, "CNTX": -16.730635, "CNTY": 65.06667, "AREA": 0.063689636399997196, "PERIM": 1.12382, "HEIGHT": 0.15747999999999251, "WIDTH": 0.40443, "vertex_index": 3, "vertex_part": 0, "vertex_part_ring": 0, "vertex_part_index": 3, "distance": 131626.73288290622, "angle": 225.0 }, "geometry": { "type": "Point", "coordinates": [ -1884956.239678882760927, 9646777.786830008029938 ] } },
+{ "type": "Feature", "properties": { "MINX": -16.93285, "MINY": 64.98793, "MAXX": -16.52842, "MAXY": 65.14541, "CNTX": -16.730635, "CNTY": 65.06667, "AREA": 0.063689636399997196, "PERIM": 1.12382, "HEIGHT": 0.15747999999999251, "WIDTH": 0.40443, "vertex_index": 4, "vertex_part": 0, "vertex_part_ring": 0, "vertex_part_index": 4, "distance": 173211.58244276466, "angle": 135.0 }, "geometry": { "type": "Point", "coordinates": [ -1884956.239678882760927, 9605192.937270149588585 ] } }
+]
+}
