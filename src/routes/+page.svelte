@@ -9,6 +9,7 @@
     import Footer from '$lib/Footer/index.svelte';
     import AboutTheData from '$lib/AboutTheData/index.svelte';
     import Solutions from '$lib/Solutions/index.svelte';
+    import Photo from '$lib/Photo/index.svelte';
 
 </script>
 <Nav />
@@ -26,6 +27,8 @@
         <AboutTheData {block} />
     {:else if block.Type === 'graphic' && block.Graphic === 'solutions'}
         <Solutions {block} />
+    {:else if block.Type === 'photo'}
+        <Photo {block} />
     {/if}
 {/each}
 
@@ -38,6 +41,9 @@
     -webkit-font-smoothing: antialiased;
     // background-color: #635E77;
     // color: #fff;
+
+    background-color: #fff;
+    color: #333;
 
     
     

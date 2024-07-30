@@ -45,6 +45,7 @@
             padding-left: 10px;
             padding-right: 10px;
             padding-top: 10px;
+            background-color: #fff;
         }
         .navbar {
             background: #F6F4EB;
