@@ -149,6 +149,7 @@
         activeWard = {};
     }
  
+    // console.log(buildings);
 
 </script>
     <div
@@ -212,20 +213,22 @@
                 
                     <g class="buildings" bind:this={buildingEls}>
                         {#each buildings as b, i}
-                            {@const r = 2};
-                            {@const coords = projection([
-                                b.LONGITUDE,
-                                b.LATITUDE,
-                            ])};
-                            <circle
-                                cx={coords[0]}
-                                cy={coords[1]}
-                                {r}
-                                fill="#FFC612"
-                                stroke="#FFC612"
-                                class="building"
-                                
-                            ></circle>
+                            {#if b.LONGITUDE != 'NA'}
+                                {@const r = 2};
+                                {@const coords = projection([
+                                    b.LONGITUDE,
+                                    b.LATITUDE,
+                                ])};
+                                <circle
+                                    cx={coords[0]}
+                                    cy={coords[1]}
+                                    {r}
+                                    fill="#FFC612"
+                                    stroke="#FFC612"
+                                    class="building"
+                                    
+                                ></circle>
+                            {/if}
                         {/each}
                         
                     </g>

@@ -36,7 +36,9 @@
 
     function activeBuildingFromIndex (index) {
         if (layers && w < breakpoint) {
+            
             const activeEl = hovers[index];
+            console.log(activeEl);
             layers.style.transform = `translateX(${transformLayers(activeEl)}px)`;
             const labels = document.querySelectorAll('.building-label');
             labels.forEach((el, i) => {
@@ -157,16 +159,20 @@
             
         });
 
-        if (w < breakpoint) {
-            activeBuildingFromIndex(0);
-        }
+       setTimeout(() => {
+        activeBuildingFromIndex(0);
+       }, 500)
         
     });
+   
     function link (el) {
         const linkout = block.Links[el.slug] || 'https://injusticewatch.org';
         window.location.assign(linkout);
     }
     
+    function initialize () {
+        
+    }
     
     
 </script>
@@ -205,8 +211,8 @@
             
         </div>
     </div>
-    {/if}
-    <div class="linkout-layers" bind:this={layers} >
+    
+    <div class="linkout-layers" bind:this={layers} use:initialize>
         <img src="{assets}/streetscape/linkout.jpg">
         <img src="{assets}/streetscape/B1.png" class="img-layer withhold-rent">
         <img src="{assets}/streetscape/B2.png" class="img-layer call-the-city">
@@ -244,6 +250,7 @@
     <a class="small-link" bind:this={smallLink}>
        
     </a>
+    {/if}
     
 </section>
 
@@ -252,6 +259,7 @@
     $iw-orange: #EA6D59;
     $shadow: #544D6F;
     .linkout-container {
+        min-height: 414px;
         // max-width: 1100px;
         margin: 5rem 0rem auto;
         margin-bottom: -10px !important;
@@ -265,7 +273,7 @@
                 font-family: "Meursault", serif;
                 // font-size: 3rem;
                 margin: 0;
-                line-height: 3rem;
+                // line-height: 3rem;
                 text-align: left;
             }
             p {
@@ -344,6 +352,9 @@
                 }
                 padding: 0px 5px 1px;
                 border-radius: 2px;
+                &.small {
+                    display: none;
+                }
                 
                 &.text-active {
                     p, h4 {
@@ -364,7 +375,8 @@
                 }
                 &.solutions {
                     top: 15%;
-                    left: 73%;
+                    left:auto;
+                    right: 10%;
                 }
 
                 
@@ -382,7 +394,8 @@
                 }
                 &.solutions.small {
                     top: -10px;
-                    left: 73%;
+                    left: auto;
+                    right: 4%;
                 }
                 
 
