@@ -8,11 +8,11 @@ jobs:
     name: Fetch latest text from Google
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Fetch latest Google text
         env: # Or as an environment variable
           GOOGLE_OAUTH_CLIENT_ID: ${{ secrets.GOOGLE_OAUTH_CLIENT_ID }}
           GOOGLE_OAUTH_CONSUMER_SECRET: ${{ secrets.GOOGLE_OAUTH_CONSUMER_SECRET }}
           GOOGLE_OAUTH_REDIRECT_URI: ${{ secrets.GOOGLE_OAUTH_REDIRECT_URI }}
-        run: npm run google
+        run: node ./bin/google/index.cjs
         
