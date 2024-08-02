@@ -15,8 +15,8 @@
     const yKey = [0, 1];
     const zKey = 'key';
   
-    const seriesNames = Object.keys(data[0]).filter(d => d !== xKey && d !== 'total');
-    const seriesColors = ['#C62C2C', '#FFC612'];
+    const seriesNames = ['total'];
+    const seriesColors = ['#FFC612'];
   
     /* --------------------------------------------
      * Cast data
@@ -91,5 +91,6 @@
     
     :global(.axis text) {
         font-family: 'Sofia Pro', 'sans-serif';
+       fill: #fff !important;
     }
   </style>

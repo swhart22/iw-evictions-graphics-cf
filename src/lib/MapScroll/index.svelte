@@ -64,7 +64,7 @@
             @media screen and (max-width:$break) {
                 width: 100%;
                 margin: 0rem auto;
-                background: rgba(255,255,255,1);
+                background: #333;
                 padding: 0.5rem 1rem 1rem;
                 border: 1px solid #eaeaea;
             }
@@ -103,7 +103,7 @@
         border: 1px solid #666666;
     }
     :global(.evictions-span) {
-        background-color: #C62C2C;
+        background-color: #FF7B4D;
         padding: 0px 6px 4px;
         border-radius: 2px;
         color: #fff;

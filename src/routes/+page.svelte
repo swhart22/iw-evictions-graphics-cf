@@ -10,6 +10,15 @@
     import AboutTheData from '$lib/AboutTheData/index.svelte';
     import Solutions from '$lib/Solutions/index.svelte';
     import Photo from '$lib/Photo/index.svelte';
+    import Soundcloud from '$lib/Soundcloud/index.svelte';
+    import { onMount } from 'svelte';
+    import { navigating } from '$app/stores'
+    
+
+    let ready;
+    onMount(() => {
+        let ready = true;
+    });
 
 </script>
 <Nav />
@@ -29,6 +38,8 @@
         <Solutions {block} />
     {:else if block.Type === 'photo'}
         <Photo {block} />
+    {:else if block.Type === 'soundcloud'}
+        <Soundcloud />
     {/if}
 {/each}
 
@@ -39,17 +50,18 @@
 :global(body) {
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
-    // background-color: #635E77;
-    // color: #fff;
-
-    background-color: #fff;
-    color: #333;
+    background-color: #635E77;
+    color: #fff;
+    min-height: 1000px;
+    // background-color: #fff;
+    // color: #333;
 
     
     
 }
 :global(html) {
     font-size: 20px;
+    min-height: 1000px;
     
 }
   

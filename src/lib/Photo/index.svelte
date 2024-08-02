@@ -3,7 +3,7 @@
     export let block;
 </script>
 
-<figure class="body-image">
+<figure class="body-image" class:lead={block.Id === 'lead'}>
     <img src="{block.Src}" alt="{block.AltText}" />
     {#if block.Caption !== ''}
         <figcaption class="caption">{@html marked.parseInline(block.Caption)}</figcaption>
@@ -17,6 +17,12 @@
     padding-left:10px;
     padding-right: 10px;
     box-sizing: border-box;
+    &.lead {
+        max-width: 1200px;
+        margin-bottom: 2rem;
+       
+        
+    }
     img {
         width: 100%;
     }

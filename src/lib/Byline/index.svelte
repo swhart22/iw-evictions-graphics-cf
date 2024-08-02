@@ -2,6 +2,7 @@
     export let authors;
     export let leadin;
     export let avatars = false;
+    export let published;
 </script>
 
 <div class="entry-meta">
@@ -9,7 +10,7 @@
         {#each authors as author}
             <span class="avatar">
                 {#if author.src && author.src !== ''}
-                    <img src={author.src} alt="Avatar photo of {author.name}"/>
+                    <img src={author.src} alt="Avatar photo of {author.name}" class="avi"/>
                 {:else}
                     <span class="avi-placeholder"></span>
                 {/if}
@@ -51,6 +52,7 @@
         {/if}
     </span>
 </div>
+<p class="publish-date entry-meta">{published}</p>
 
 <style lang="scss">
     .entry-meta {
@@ -60,6 +62,12 @@
         font-family: 'Sofia Pro', sans-serif;
         font-size: 0.8rem;
         justify-content: center;
+    }
+    .publish-date {
+        @media screen and (min-width: 730px) {
+            margin-top: -10px;
+        }
+        
     }
     .avatar {
         margin-right: 0.5rem;
@@ -79,6 +87,10 @@
             display: inline-block;
             width: 100%;
             height: 100%;
+            z-index: 1;
+        }
+        .avi {
+            z-index: 2;
         }
     }
     .byline {
@@ -86,7 +98,7 @@
         margin-bottom:0.5rem;
         a {
             text-decoration: none;
-            color: #333;
+            color: #fff;
         }
     }
     @media only screen and (max-width: 600px) {

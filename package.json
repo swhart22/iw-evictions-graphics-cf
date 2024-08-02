@@ -6,7 +6,9 @@
     "build": "vite build",
     "preview": "npm run build && wrangler pages dev",
     "deploy": "npm run build && wrangler pages deploy",
-    "google": "node --env-file=.env ./bin/google/index.cjs"
+    "google": "node --env-file=.env ./bin/google/index.cjs",
+    "stage": "bash ./bin/stage.sh",
+    "publish": "bash ./bin/publish.sh"
   },
   "devDependencies": {
     "@fontsource/fira-mono": "^4.5.10",

@@ -1,5 +1,9 @@
 <script>
+    import { assets } from '$app/paths';
+    
     import Byline from '../Byline/index.svelte';
+
+    export let Page;
     const authors = [
         {'name': 'Alejandra Cancino', 
             'src': 'https://www.injusticewatch.org/wp-content/uploads/cropped-cropped-Alejandra-scaled-1-80x80.jpg',
@@ -28,25 +32,28 @@
 </script>
 <div class="header-container">
     <div class="img-container">
-        <img src="/streetscape/header.jpg">
+        <img src='{assets}/streetscape/header.jpg'>
     </div>
     <div class='entry-header pad'>
-        <h1 class="entry-title entry-title--with-subtitle">So you live in a bad building</h1>
+        <p class="project-title">The Tenant Trap</p>
+        <div class="break yellow"></div>
+        <h1 class="entry-title entry-title--with-subtitle">{Page.headline}</h1>
         <div class="newspack-post-subtitle">
-            <p>There are 2,654 properties with a history of chronic, serious code violations in Chicago. Can their owners be forced to fix them? </p>
+            <p>{Page.subhed}</p>
         </div>
-        <Byline leadin="by" {authors} avatars={true}/>
+        <Byline leadin="by" authors={Page.byline} avatars={true} published={Page.published}/>
     </div>
 </div>
 <style lang='scss'>
     .header-container {
         width: 100%;
+        margin-bottom: 3rem;
         .entry-header {
             max-width:960px;
             width: 100%;
             margin: 0rem auto;
             // margin-top: -200px;
-            // z-index: 2;
+            z-index: 2;
         }
         .newspack-post-subtitle {
             font-family: 'Freight Text Pro', serif;
@@ -54,6 +61,22 @@
             text-align: center;
             margin-top: 1rem;
             margin-bottom: 1.3em;
+        }
+        .project-title {
+            text-transform: uppercase;
+            color: rgb(248, 205, 101);
+            letter-spacing: 0.2em;
+            font-size: 0.7rem;
+            font-family: 'Sofia Pro', sans-serif;
+            text-align: center;
+            font-weight: 900;
+            // margin-bottom: 0.5rem;
+        }
+        .break.yellow {
+            max-width: 100px;
+            border-top: 2px solid rgb(248, 205, 101);
+            height: 2px;
+            margin: 0rem auto 1rem;
         }
         h1 {
             font-family: "Meursault Condensed", serif;

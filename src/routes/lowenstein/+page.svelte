@@ -1,15 +1,16 @@
 <script>
-    import Map from '$lib/StaticMapExport/index.svelte';
+
+    import Lowenstein from '$lib/ai2svelte/lowenstein.svelte';
+    import { assets } from '$app/paths';
     import Page from '$lib/page.json';
-    const universe = 'lowenstein';
     const graphicInfo = Page.lowenstein;
 </script>
 <div class="chatter">
     <h3>{graphicInfo.GraphicTitle}</h3>
     <p class="chatter">{graphicInfo.GraphicDek}</p>
 </div>
-<div class="container">
-    <Map {universe}/>
+<div class="container ai2html">
+    <Lowenstein assetsPath={assets} />
 </div>
 <style lang='scss'>
     :global(html) {
@@ -31,13 +32,15 @@
            font-family: 'Sofia Pro', sans-serif;
            font-size: 0.9rem; 
            margin: 0;
+           line-height: 1.3;
+           font-weight: 400;
            
         }
     }
     .container {
-        max-width: 390px;
+        max-width: 780px;
         width: 100%;
         margin: 0rem auto;
-        height: 500px;
+        height: 620px;
     }
 </style>

@@ -1,0 +1,8 @@
+.linkout-container svg:not(.svelte-fa){
+    polygon, path {
+        fill: #fff;
+        stroke: none;
+        opacity: 0;
+        cursor: pointer;
+    }
+}

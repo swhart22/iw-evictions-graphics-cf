@@ -25,9 +25,9 @@
         max-width: 780px;
         width: 100%;
         margin: 1rem auto;
-        border: 2px solid #f8cd65;
-        background-color: rgba(248,205,101,.1);
-        
+        background-color: rgba(35, 37, 41, 0.6);
+        color: #eaeaea;
+        border: 2px solid #232529;
     }
     :global(.scroll-bump p) {
         font-family: 'Sofia Pro', sans-serif;

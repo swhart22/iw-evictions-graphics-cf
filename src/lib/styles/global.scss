@@ -12,13 +12,14 @@ h3 {
     }
 }
 body, html {
-    // overflow-x: hidden;
+    
     margin: 0;
     padding: 0;
 }
 body {
     position: relative;
     width: 100%;
+    overflow-x: hidden;
 }
 .full-width {
     // width: 100vw;
@@ -40,16 +41,30 @@ body {
 }
 
 .body-text p a, .map-section .content p a {
-    color: #FF2300;
-    background: linear-gradient(0deg, rgb(246 244 235 / 0%) 4px, rgba(234,109,89,0.7) 4px, rgba(234,109,89,0.7) 5px, rgba(251,50,18,0.15) 5px, rgba(251,50,18,0.15) 96%, rgb(246 244 235 / 0%) 96%);
+    color: #FFC612;
+    background: linear-gradient(0deg, rgb(255 198 18 / 0%) 4px, rgba(255, 198, 18, 0.7) 4px, rgba(255, 198, 18, 0.7) 5px, rgba(255, 198, 18, 0.15) 5px, rgba(255, 198, 18, 0.15) 96%, rgb(255 198 18 / 0%) 96%);
     background-position: 0% 100%;
     background-repeat: no-repeat;
     background-size: 100% 40%;
     transition: background-size .1s ease-in;
     text-decoration: none;
+    // font-weight: 600;
     &:hover,
     &:focus {
         background-size: 100% 100%;
-        color: #FF2300;
+        color: #FFC612;
+    }
+}
+
+.ai2html {
+    p {
+        font-family: Sofia Pro, sans-serif;
+    }
+    .g-text-shadow p {
+        text-shadow: 1px 1px 1px #fff,
+        -1px -1px 1px #fff,
+        -1px 1px 1px #fff,
+        1px -1px 1px #fff;
+        font-weight: 800;
     }
 }

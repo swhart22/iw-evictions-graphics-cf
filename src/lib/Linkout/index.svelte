@@ -1,8 +1,11 @@
 <script>
     import LinkoutSVG from './linkout.svelte';
     import { onMount } from 'svelte';
+    import { marked } from 'marked';
     import Fa from 'svelte-fa';
-    import { faPhone, faMoneyBill1, faGavel, faArrowRightLong, faArrowLeftLong, faCity } from '@fortawesome/free-solid-svg-icons'
+    import './svg.scss';
+    import { faPhone, faMoneyBill1, faGavel, faCaretRight, faCaretLeft, faCity } from '@fortawesome/free-solid-svg-icons'
+    import { assets } from '$app/paths';
     export let block;
 
     // console.log(block);
@@ -10,7 +13,7 @@
     const breakpoint = 800;
     let w, layers, hovers, smallLink;
     let activeIndex = 0;
-    let hoverEls = 3;
+    let hoverEls = 4;
 
 
     $: overflow = w < breakpoint; 
@@ -45,6 +48,9 @@
                 }
             });
             smallLink.setAttribute('href', block.Links[activeEl.slug]);
+            mouseout();
+            hover(activeEl);
+            
         } else if (layers && w >= breakpoint) {
             const labels = document.querySelectorAll('.building-label');
             labels.forEach(el => el.style.display = 'block');
@@ -59,7 +65,15 @@
         const parent = layers;
         const parentCoords = parent.getBoundingClientRect();
         const elX = elCoords.x - parentCoords.x;
-        return -elX + (w / 2) - (elW / 2);
+        const rawTransformX = -elX + (w / 2) - (elW / 2);
+        
+        if (rawTransformX > 0) {
+            return 0;
+        } else if (Math.abs(rawTransformX) > elW) {
+            return -parentCoords.width + w;
+        } else {
+            return rawTransformX;
+        }
     }
 
    
@@ -74,12 +88,30 @@
         activeBuildingFromIndex(0);
     }
 
-   
+    function hover (el) {
+            const activeBldg = document.querySelector(`.img-layer.${el.slug}`);
+            activeBldg.classList.add('active');
+            
+            const text = document.querySelector(`.building-label.${el.slug}`);
+            text.classList.add('text-active');
+        }
+        function mouseout (el) {
+            const bldgs = document.querySelectorAll('.img-layer');
+            bldgs.forEach((h) => {
+                h.classList.remove('active');
+            });
+
+            const texts = document.querySelectorAll('.building-label');
+            texts.forEach(t => {
+                t.classList.remove('text-active');
+            });
+        }
     onMount(() => {
         
         const withholdRent = document.querySelector('#withhold-rent polygon');
-        const callTheCity = document.querySelector('#call-the-city polygon');
+        const callTheCity = document.querySelector('#call-the-city path');
         const sueTheLandlord = document.querySelector('#sue-the-landlord polygon');
+        const solutions = document.querySelector('#solutions polygon');
         hovers = [
             {
                 el: withholdRent,
@@ -98,32 +130,31 @@
                 slug: 'sue-the-landlord',
                 anchor: -80,
                 title: 'Sue the landlord'
+            },
+            {
+                el: solutions,
+                slug: 'solutions',
+                anchor: -200,
+                title: 'Solutions'
             }
         ];
 
-        function hover (el) {
-
-            hovers.forEach((h) => {
-                h.el.classList.remove('active');
-            })
-            const text = document.querySelector(`.building-label.${el.slug}`);
-            el.el.classList.add('active');
-            text.classList.add('text-active');
-        }
-        function mouseout (el) {
-            hovers.forEach((h) => {
-                h.el.classList.add('active');
-            })
-        }
+        
 
         // add links 
         hovers.forEach(el => {
             // add event listeners
-            el.el.classList.add('active');
-            // el.el.addEventListener('mouseover', () => hover(el));
-            // el.el.addEventListener('mouseout', () => mouseout(el));
+            el.el.addEventListener('mouseover', () => hover(el));
+            el.el.addEventListener('mouseout', () => mouseout(el));
             el.el.addEventListener('click', () => link(el));
             el.el.setAttribute('tabindex', '0');
+
+            // text event listeners
+            const text = document.querySelector(`.building-label.${el.slug}`);
+            text.addEventListener('mouseover', () => hover(el));
+            text.addEventListener('mouseout', () => mouseout(el));
+            text.addEventListener('click', () => link(el));
+            
         });
 
         if (w < breakpoint) {
@@ -137,13 +168,15 @@
     }
     
     
+    
 </script>
 
 <section class="linkout-container" id="options" bind:clientWidth={w} class:overflow={w < breakpoint} class:fullwidth={w >= breakpoint}>
     <div class="chatter">
-        <h3>Courses of action:</h3>
-        <p class="call-to-action">Click or tap a building to explore a particular option.</p>
+        <h3>{block.Title}</h3>
+        <p class="call-to-action">{block.Dek}</p>
     </div>
+    {#if w}
     <div class="controls">
         <div class="left" 
             on:click={() => cycle('left')} 
@@ -151,9 +184,10 @@
             role="button" 
             tabindex="0" 
             class:display={activeIndex > 0}>
-            <Fa icon={faArrowLeftLong} />
+            <Fa icon={faCaretLeft} />
             {#if hovers && activeIndex > 0}
-                <p>{hovers[activeIndex - 1].title}</p>
+                <p class="prev-next prev">Prev</p>
+                <!-- <p>{hovers[activeIndex - 1].title}</p> -->
             {/if}
         </div>
         <div 
@@ -163,71 +197,68 @@
             role="button" 
             tabindex="0" 
             class:display={activeIndex < hoverEls - 1}>
-            <Fa icon={faArrowRightLong} />
             {#if hovers && activeIndex < hoverEls - 1}
-                <p>{hovers[activeIndex + 1].title}</p>
+                <p class="prev-next next">Next</p>
+                <!-- <p>{hovers[activeIndex + 1].title}</p> -->
             {/if}
+            <Fa icon={faCaretRight} />
+            
         </div>
     </div>
+    {/if}
     <div class="linkout-layers" bind:this={layers} >
-        <img src="/streetscape/linkout.jpg">
+        <img src="{assets}/streetscape/linkout.jpg">
+        <img src="{assets}/streetscape/B1.png" class="img-layer withhold-rent">
+        <img src="{assets}/streetscape/B2.png" class="img-layer call-the-city">
+        <img src="{assets}/streetscape/B3.png" class="img-layer sue-the-landlord">
+        <img src="{assets}/streetscape/B4.png" class="img-layer solutions">
         <LinkoutSVG />
         <div class="labels">
-            <div class="building-label withhold-rent">
-                
-                
-                <h4>
-                <div class="number"><Fa icon={faMoneyBill1} color="#eaeaea" /></div> Withhold rent
-                </h4>
-                <p>One short sentence here leading into withhold rent story.
-                </p>
+            <div class="building-label withhold-rent" class:small={w < breakpoint}>
+                <h4><div class="number"><Fa icon={faMoneyBill1} color="#eaeaea" /></div> Withhold rent</h4>
+                <div class="break"></div>
+                <p>{@html marked.parseInline(block.Links['withhold-rent-dek'])} </p>
+                <p class="read-more"><span class="text">Learn more</span><span class="arrow">→</span></p>
             </div>
-            <div class="building-label call-the-city">
-               
-                <h4>
-                    <div class="number"><Fa icon={faPhone} color="#eaeaea" /></div> Call the city
-                </h4>
-                <p>One short sentence here leading into withhold rent story.
-                </p>
+            <div class="building-label call-the-city" class:small={w < breakpoint}>
+                <h4><div class="number"><Fa icon={faPhone} color="#eaeaea" /></div> Call the city</h4>
+                <div class="break"></div>
+                <p>{@html marked.parseInline(block.Links['call-the-city-dek'])} </p>
+                <p class="read-more"><span class="text">Learn more</span><span class="arrow">→</span></p>
             </div>
-            <div class="building-label sue-the-landlord">
-                
-                
-                <h4>
-                    <div class="number"><Fa icon={faGavel} color="#eaeaea" /></div> Sue the landlord
-                </h4>
-                <p>One short sentence here leading into withhold rent story.
-                </p>
+            <div class="building-label sue-the-landlord" class:small={w < breakpoint}>
+                <h4><div class="number"><Fa icon={faGavel} color="#eaeaea" /></div> Sue the landlord</h4>
+                <div class="break"></div>
+                <p>{@html marked.parseInline(block.Links['sue-the-landlord-dek'])} </p>
+                <p class="read-more"><span class="text">Learn more</span><span class="arrow">→</span></p>
             </div>
-            <div class="building-label solutions">
-                
-                <h4>
-                    <div class="number"><Fa icon={faCity} color="#eaeaea" /></div> Solutions
-                </h4>
-                <p>One short sentence here leading into withhold rent story.
-                </p>
+            <div class="building-label solutions" class:small={w < breakpoint}>
+                <h4><div class="number"><Fa icon={faCity} color="#eaeaea" /></div> Solutions</h4>
+                <div class="break"></div>
+                <p>{@html marked.parseInline(block.Links['solutions-dek'])}</p>
+                <p class="read-more"><span class="text">Learn more</span><span class="arrow">→</span></p>
             </div>
         </div>
         
     </div>  
-    <a class="small-link" bind:this={smallLink}></a>
+    <a class="small-link" bind:this={smallLink}>
+       
+    </a>
     
 </section>
 
 <style lang='scss'>
+    // @import 'svg.scss';
     $iw-orange: #EA6D59;
     $shadow: #544D6F;
     .linkout-container {
         // max-width: 1100px;
-        margin: 1rem 0rem auto;
+        margin: 5rem 0rem auto;
         margin-bottom: -10px !important;
         .leadin {
             font-family: 'Sofia Pro', sans-serif;
         }
         .chatter {
-            // position: absolute;
-            // top: 0px;
-            // left: 0px;
             max-width: 760px;
             margin: 1rem auto;
             h3 {
@@ -262,96 +293,124 @@
             left: 0px;
             z-index: 1;
         }
+        img.img-layer {
+            position: absolute;
+            pointer-events: none;
+            &:not(.active) {
+                opacity: 0;
+            }
+            &.active {
+                opacity: 1;
+            }
+        }
         .labels {
             width: 100%;
             height: 100%;
             top: 0px;
             left: 0px;
+            z-index: 5;
+            @media screen and (max-width: 800px) {
+                    width: 100vw;
+                    top: 10px !important;
+                    // left: 50px !important;
+                    // left: 0px !important;
+                }
             .building-label {
                 position: absolute;
-                // text-align:center;
                 top: 0px;
                 left:0px;
-                max-width: 280px;
+                max-width: 270px;
+                cursor: pointer;
                 p, h4 {
                     text-shadow: 1px 1px 2px $shadow,
                     -1px 1px 2px $shadow,
                     1px -1px 2px $shadow,
                     -1px -1px 2px $shadow;
-                   
+                    color: #fff;
                 }
                 h4 {
                     font-size: 1.4rem;
                     font-family: "Meursault", serif;
-                    // text-transform: uppercase;
-                    // letter-spacing: 1px;
                     margin: 0;
                     line-height: 1.2;
-                    color: #fff;
                 }
                 
                 p {
                     font-family: 'Sofia Pro', sans-serif;
-                    // text-transform: uppercase;
-                    font-size: 0.7rem;
+                    font-size: 0.8rem;
                     font-weight: 300;
                     margin: 0.25rem 0rem;
-                    color: #fff;
                     
                 }
                 padding: 0px 5px 1px;
                 border-radius: 2px;
-                             // border: 2px solid #3d3741;
-                // background-color: rgba(61, 55, 65, .4);
-                // padding: 1rem 0.5rem 0.5rem;
-
-               
-                // border: 1px solid #999;
+                
+                &.text-active {
+                    p, h4 {
+                        color: #fff;
+                    }
+                }
                 &.withhold-rent {
-                    top: 29%;
-                    left: 1%;
-                    // background-color: #ffc9fd;
+                    top: 15%;
+                    left: 2%;
                 }
                 &.call-the-city {
-                    top: 29%;
-                    left: 20%;
+                    top: 15%;
+                    left: 25%;
                 }
                 &.sue-the-landlord {
-                    top: 17%;
-                    left: 42%;
+                    top: 15%;
+                    left: 48%;
                 }
                 &.solutions {
-                    top: 33%;
+                    top: 15%;
                     left: 73%;
                 }
+
+                
+                &.withhold-rent.small {
+                    top:-10px;
+                    left: 2%;
+                }
+                &.call-the-city.small {
+                    top: -10px;
+                    left: 19%;
+                }
+                &.sue-the-landlord.small {
+                    top: -10px;
+                    left: 40%;
+                }
+                &.solutions.small {
+                    top: -10px;
+                    left: 73%;
+                }
+                
+
             }
         }
     }
     }
     .number {
-        width: 40px;
-        height: 40px;
-        display: inline-flex;
+        // width: 40px;
+        // height: 40px;
+        // display: inline-flex;
+        display: none;
         justify-content: center;
         align-items:center;
         color: #fff;
-        border: 1px solid #fff;
+        // border: 1px solid #fff;
         font-size: 1rem;
         border-radius: 50%;
-        background-color: $iw-orange;
-        margin-top: -20px;
+        // background-color: $iw-orange;
+        // margin-top: -20px;
         margin-right: 5px;
         font-weight: 800;
-        // box-shadow: 1px 1px 2px #fff,
-        // -1px 1px 2px #fff,
-        // 1px -1px 2px #fff,
-        // -1px -1px 2px #fff;
     }
 
     .linkout-container .small-link {
         width: 100vw;
         max-width: 500px;
-        height: 411px;
+        height: 250px;
         position: absolute;
         left: 0px;
         // background-color: red;
@@ -391,11 +450,13 @@
                 opacity: 0;
                 pointer-events: none;
                 display: flex;
-                flex-direction: column;
-                flex-wrap: wrap;
+                background-color: $iw-orange;
+                // flex-direction: column;
+                // flex-wrap: wrap;
                 // align-items: flex-start;
                 cursor: pointer;
-
+                align-items: flex-end;
+                padding: 0rem 0.5rem 0.25rem 0.5rem;
                 p {
                     text-transform: uppercase;
                     font-family: 'Sofia Pro', sans-serif;
@@ -409,10 +470,10 @@
                 }
             }
             .left {
-                align-items: flex-start;
+                // align-items: flex-start;
             }
             .right {
-                align-items: flex-end;
+                // align-items: flex-end;
             }
             .right p {
                 text-align: right;
@@ -424,6 +485,36 @@
         }
     }
 
+    .prev {
+        margin-left: 5px !important;
+    }
+    .next {
+        margin-right: 5px !important;
+    }
+    .read-more {
+        span.text {
+            font-weight: 800;
+            margin-right: 0.2rem;
+        }
+        span.arrow {
+            font-weight: 300;
+        }
+        white-space: nowrap;
+        background-color: $iw-orange;
+        padding: 0.1rem 0.6rem 0.15rem 0.3rem;
+        border-radius: 2px;
+        text-shadow:none!important;
+        display: inline-flex;
+        align-items: center;
+       
+    }
+
+    .break {
+        border-top: 2px solid $iw-orange;
+        height: 1px;
+        width: 150px;
+        margin-top: 0.5rem;
+    }
 
   
     :global(.linkout-container svg:not(.svelte-fa)) {
@@ -432,20 +523,6 @@
         position: absolute;
         top: 0px;
         left: 0px;
-        
     }
-    :global(.linkout-container polygon) {
-        fill: #fff;
-        stroke: none;
-        
-        opacity: 0.3;
-        
-    }
-    :global(polygon.active) {
-            opacity: 0;
-            cursor: pointer;
-    }
-    :global(.text-active) {
-        color: #000 !important;
-    }
+   
 </style>

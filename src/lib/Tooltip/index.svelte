@@ -29,6 +29,7 @@
         border: 1px solid #999;
         border-radius: 2px;
         padding: 0.25rem 0.5rem 0.5rem;
+        color: #333;
         p {
             line-height: 1.2;
             margin: 0;

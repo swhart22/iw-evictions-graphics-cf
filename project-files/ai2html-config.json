@@ -1,0 +1,22 @@
+{	
+	"fonts": [
+      {
+        "aiFont": "SofiaPro-Regular",
+        "family": "Sofia Pro, sans-serif",
+        "weight": "",
+        "style": ""
+      },
+      {
+        "aiFont": "SofiaPro-Bold",
+        "family": "Sofia Pro, sans-serif",
+        "weight": "800",
+        "style": ""
+      },
+      {
+        "aiFont": "SofiaPro-Light",
+        "family": "Sofia Pro, sans-serif",
+        "weight": "300",
+        "style": ""
+      }
+    ]
+}

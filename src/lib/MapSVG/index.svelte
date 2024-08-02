@@ -30,7 +30,7 @@
 
     let projection = geoMercator();
 
-    let wardEls, wardBoundEls, roadEls, buildingEls, evictionEls;
+    let wardEls, wardBoundEls, roadEls, buildingEls, evictionEls, simEls;
     onMount(async () => {
         dom = true;
         wardEls = document.querySelector(".wards");
@@ -55,11 +55,11 @@
         if (dom) {
             if (index === 0) {
                 showEls([roadEls, buildingEls]);
-                hideEls([wardEls, wardBoundEls,  evictionEls]);
+                hideEls([wardEls, wardBoundEls,  evictionEls, simEls]);
             }
             if (index === 1) {
-                showEls([roadEls, wardEls, wardBoundEls, buildingEls]);
-                hideEls([evictionEls]);
+                showEls([roadEls, buildingEls]);
+                hideEls([wardEls, wardBoundEls, evictionEls, simEls]);
             }
             if (index === 2) {
                 // buildings = buildings.sort((a, b) => a.);
@@ -70,7 +70,7 @@
                     buildingEls,
                     
                 ]);
-                hideEls([evictionEls]);
+                hideEls([evictionEls, simEls]);
             }
             if (index === 3) {
                 showEls([
@@ -80,7 +80,7 @@
                     buildingEls,
                     evictionEls,
                 ]);
-                hideEls([evictionEls]);
+                hideEls([evictionEls, simEls]);
             }
             if (index === 4) {
                 showEls([
@@ -90,28 +90,24 @@
                     buildingEls,
                     evictionEls,
                 ]);
-                hideEls([]);
+                hideEls([simEls]);
             }
             if (index === 5) {
                 showEls([
                     roadEls,
                     wardEls,
-                    wardBoundEls,
+                    
+                    simEls
+                ]);
+                
+                // console.log(fades);
+                fadeEls([
                     buildingEls,
                     evictionEls,
-                ]);
-                hideEls([]);
-            }
-            if (index === 6) {
-                showEls([
-                    roadEls,
-                    wardEls,
                     wardBoundEls,
-                    buildingEls,
-                    evictionEls,
                 ]);
-                hideEls([]);
             }
+           
         }
     }
 
@@ -123,6 +119,7 @@
         arr.forEach(( el) => {
             if (el) {
                 el.style.display = "block";
+                el.style.opacity = 1;
             }
         });
     }
@@ -134,6 +131,13 @@
             }
         });
     }
+    function fadeEls (arr) {
+        arr.forEach((el) => {
+            if (el) {
+                el.style.opacity = 0.1;
+            }
+        })
+    }
     function hover (e, ward, bounds) {
         tooltipDisplay = 'block';
         activeWard = ward;
@@ -144,6 +148,7 @@
         tooltipDisplay = 'none';
         activeWard = {};
     }
+ 
 
 </script>
     <div
@@ -156,12 +161,20 @@
                 <clipPath id="chicago">
                     <path
                         d={path(chicagoBoundary)}
-                        stroke="#666"
+                        stroke="#fff"
                         stroke-width="1"
                         fill="none"
                     >
                     </path>
                 </clipPath>
+                <path
+                    d={path(chicagoBoundary)}
+                    stroke="none"
+                    fill="#333"
+                    class="chicago-boundary"
+                    fill-opacity=0
+                >
+                </path>
                 <g class="wards" clip-path="url(#chicago)">
                     {#each wardFeatures.features as ward}
                         {@const bounds = path.bounds(ward)}
@@ -178,19 +191,20 @@
                 <g class="roads" clip-path="url(#chicago)" bind:this={roadEls} >
                     <path
                         d={path(roadLines)}
-                        stroke="#eaeaea"
+                        stroke="#999"
                         stroke-width="0.5"
                         fill="none"
                     >
                     </path>
                 </g>
                 {#if !landlords}
+                
                 <path
                     class="ward-boundaries wards"
                     clip-path="url(#chicago)"
                     d={path(wardBounds)}
                     fill="none"
-                    stroke="#999"
+                    stroke="#F9DADA"
                     stroke-width="1px"
                     bind:this={wardBoundEls}
                 >
@@ -210,6 +224,7 @@
                                 fill="#FFC612"
                                 stroke="#FFC612"
                                 class="building"
+                                
                             ></circle>
                         {/each}
                         
@@ -225,37 +240,35 @@
                                 cx={coords[0]}
                                 cy={coords[1]}
                                 {r}
-                                fill="#C62C2C"
-                                stroke="#C62C2C"
+                                fill="#FF7B4D"
+                                stroke="#FF7B4D"
                                 stroke-width="1"
                                 class="eviction"
                             ></circle>
                         {/each}
                     </g>
-                {/if}
-                {#if landlords}
-                    <g class="landlords">
-                        {#each properties as p}
-                        {@const r = 3};
-                        {@const coords = projection([
-                            p.X,
-                            p.Y,
-                        ])}
-                        <circle
-                            cx={coords[0]}
-                            cy={coords[1]}
-                            {r}
-                            fill="#C62C2C"
-                            stroke="#C62C2C"
-                            stroke-width="1"
-                            class="lowenstein"
-                        ></circle>
+                    <g class="simultaneous" bind:this={simEls}>
+                        {#each evictions.filter(d => d.simultaneous === 'TRUE') as e}
+                            {@const r = 2};
+                            {@const coords = projection([
+                                e["LONGITUDE.x"],
+                                e["LATITUDE.x"],
+                            ])};
+                            <circle
+                                cx={coords[0]}
+                                cy={coords[1]}
+                                {r}
+                                fill="#FF7B4D"
+                                stroke="#FF7B4D"
+                                stroke-width="1"
+                                class="eviction sim"
+                            ></circle>
                         {/each}
                     </g>
                 {/if}
                 <path
                     d={path(chicagoBoundary)}
-                    stroke="#333"
+                    stroke="#fff"
                     stroke-width="1"
                     fill="none"
                     class="chicago-boundary"
@@ -292,19 +305,29 @@
     }
     .ward-shape {
         cursor: crosshair;
+        fill-opacity: 0.01;
         &:hover {
             fill: #eaeaea;
+            fill-opacity: 0.5;
         }
     }
+   
     .building,
     .eviction, .lowenstein {
-        fill-opacity: 0.6;
+        fill-opacity: 1;
+        // stroke-width: 0.25;
+        // stroke: #eaeaea;
         /* mix-blend-mode: multiply; */
     }
-    .building {
+    .building, .eviction {
         
         &.highlighted {
-            opacity: 1;
+            stroke: #eaeaea;
+            stroke-width: 0.25;
+            r: 3;
+        }
+        &.faded {
+            opacity: 0.1;
         }
     }
     .chicago-boundary, .roads, .buildings, .ward-boundaries {

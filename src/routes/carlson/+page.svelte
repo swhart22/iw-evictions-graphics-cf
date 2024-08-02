@@ -1,5 +1,7 @@
 <script>
     import Map from '$lib/StaticMapExport/index.svelte';
+    import Carlson from '$lib/ai2svelte/carlson.svelte';
+    import { assets } from '$app/paths';
     import Page from '$lib/page.json';
     const universe = 'carlson';
     const graphicInfo = Page.carlson;
@@ -8,8 +10,8 @@
     <h3>{graphicInfo.GraphicTitle}</h3>
     <p class="chatter">{graphicInfo.GraphicDek}</p>
 </div>
-<div class="container">
-    <Map {universe}/>
+<div class="container ai2html">
+    <Carlson assetsPath={assets} />
 </div>
 <style lang='scss'>
     :global(html) {
@@ -37,9 +39,9 @@
         }
     }
     .container {
-        max-width: 390px;
+        max-width: 780px;
         width: 100%;
         margin: 0rem auto;
-        height: 500px;
+        height: 620px;
     }
 </style>
