@@ -1,38 +1,37 @@
-# create-svelte
+# Prerequisites
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/main/packages/create-svelte).
+**[Node version 20+](https://nodejs.org/en/download/package-manager)** installed on your machine. If you have an older version of node already installed and want to keep it, I use NVM package manager to keep multiple versions at the same time. Install it [here](https://github.com/nvm-sh/nvm).
 
-## Creating a project
+**[Yarn](https://classic.yarnpkg.com/lang/en/docs/install/#mac-stable)**
+Install by running
 
-If you're seeing this, you've probably already done this step. Congrats!
-
-```bash
-# create a new project in the current directory
-npm create svelte@latest
-
-# create a new project in my-app
-npm create svelte@latest my-app
+```
+npm install --global yarn
 ```
 
-## Developing
+# Make updates and redeploy.
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+## First time only
+1. Clone this repo onto your machine.
 
-```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
+```
+git clone https://github.com/swhart22/iw-evictions-graphics-cf
 ```
 
-## Building
+2. Run yarn to install dependencies. Navigate into this project, then run yarn.
 
-To create a production version of your app:
-
-```bash
-npm run build
+```
+cd [path-to/where-you-cloned-this-repo]/iw-evictions-graphics-cf
 ```
 
-You can preview the production build with `npm run preview`.
+```
+yarn
+```
 
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+## For each update
+
+3. Get text updates from our Google Doc. Assuming you've navigated into the project,
+
+```
+yarn google
+```
