@@ -22,7 +22,7 @@ jobs:
       - name: set git config
         run: git config user.email s.w.hart22@gmail.com && git config user.name swhart22
       - name: set origin
-        run: git remote set-url origin https://${{ secrets.GIT_TOKEN }}@github.com/swhart22/iw-evictions-graphics-cf
+        run: git remote set-url origin https://${{ secrets.GIT_TOKEN }}@github.com/swhart22/iw-evictions-graphics-cf.git
       - name: stage changed files
         run: git add .
       - name: commit changed files
