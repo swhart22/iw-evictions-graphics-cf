@@ -19,6 +19,8 @@ jobs:
           GOOGLE_OAUTH_CONSUMER_SECRET: ${{ secrets.GOOGLE_OAUTH_CONSUMER_SECRET }}
           GOOGLE_OAUTH_REDIRECT_URI: ${{ secrets.GOOGLE_OAUTH_REDIRECT_URI }}
         run: npm install && node ./bin/google/index.cjs
+      - name: configure git
+        run: git config user.email s.w.hart22@gmail.com && git config user.name swhart22
       - name: set origin
         run: git remote set-url origin https://${{ secrets.GIT_TOKEN }}@github.com/swhart22/iw-evictions-graphics-cf.git
       - name: stage changed files
