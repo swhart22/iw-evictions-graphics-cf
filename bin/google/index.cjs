@@ -24,9 +24,9 @@ const SCOPES = ['https://www.googleapis.com/auth/drive',
 const TOKEN_PATH = 'token.json';
 
 async function run () {
-  console.log('hello 1');
+  // console.log('hello 1');
   authorize(main);
-  console.log('hello 2');
+  // console.log('hello 2');
 }
 
 run();
