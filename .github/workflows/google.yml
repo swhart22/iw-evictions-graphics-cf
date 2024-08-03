@@ -9,6 +9,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+          with:
+            token: ${{ secrets.GITHUB_TOKEN }}
       - name: Node
         uses: actions/setup-node@v4
         with:
@@ -22,7 +24,7 @@ jobs:
       - name: configure git
         run: git config user.email s.w.hart22@gmail.com && git config user.name swhart22
       - name: set origin
-        run: git remote set-url origin https://${{ secrets.GIT_TOKEN }}@github.com/swhart22/iw-evictions-graphics-cf.git
+        run: git remote set-url origin https://${{ secrets.GITHUB_TOKEN }}@github.com/swhart22/iw-evictions-graphics-cf.git
       - name: stage changed files
         run: git add .
       - name: commit changed files
