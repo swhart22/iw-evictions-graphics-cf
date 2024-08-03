@@ -30,8 +30,4 @@ yarn
 
 ## For each update
 
-3. Get text updates from our Google Doc. Assuming you've navigated into the project,
 
-```
-yarn google
-```
