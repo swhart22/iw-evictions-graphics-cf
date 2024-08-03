@@ -36,9 +36,11 @@ jobs:
       - name: Create dist folder for upload
         run: |
           mkdir ./.svelte-kit/evictions
-          cp -a ./.svelte-kit/cloudflare/. ./.svelte-kit/evictions/
-          zip -r ./.svelte-kit/evictions.zip ./.svelte-kit/evictions/
-          mv ./.svelte-kit/evictions.zip ./
+          cd ./.svelte-kit
+          cp -a ./cloudflare/. ./evictions/
+          zip -r ./evictions.zip ./evictions/
+          mv ./evictions.zip ../
+          cd ../
       - name: set origin
         run: git remote set-url origin https://${{ secrets.GIT_TOKEN }}@github.com/swhart22/iw-evictions-graphics-cf.git
       - name: stage changed files
