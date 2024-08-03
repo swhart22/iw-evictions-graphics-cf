@@ -31,4 +31,6 @@ jobs:
         run: git fetch origin main
       - name: push code to main
         run: git push origin HEAD:main
+        env: 
+          GH_TOKEN: ${{ secrets.GIT_TOKEN }}
         
