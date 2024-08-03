@@ -7,7 +7,8 @@ If changes have been made to the Google Doc that call for a republish, follow th
 <img width="1085" alt="Screenshot 2024-08-03 at 11 14 27 AM" src="https://github.com/user-attachments/assets/d675984d-df66-483e-a7c5-b730e914be24">
 3. If the run is successful, you'll see a green circle here. If it's unsuccessful, contact me :)
 <img width="423" alt="Screenshot 2024-08-03 at 1 47 02 PM" src="https://github.com/user-attachments/assets/27e71e94-a6ce-4482-b743-dddc909260fb">
-4. You'll now see a zip folder at the root of this git repo called ["evictions.zip"](https://github.com/swhart22/iw-evictions-graphics-cf/blob/main/evictions.zip). Download and unzip it. You can download by clicking in the "..." at the right of the screen and selecting download from the menu there.
+
+4. You'll now see a zip folder at the root of this git repo called [evictions.zip](https://github.com/swhart22/iw-evictions-graphics-cf/blob/main/evictions.zip). Download and unzip it. You can download by clicking in the "..." at the right of the screen and selecting download from the menu there.
 <img width="1131" alt="Screenshot 2024-08-03 at 1 49 56 PM" src="https://github.com/user-attachments/assets/3c84c9eb-a4dd-44b0-9152-e1e800cc2904">
 5. The folder you just unzipped is a production-ready build of the updated project. You can add it to the Injustice Watch Interactives repository and push to publish it there. Just overwrite the previous "evictions" directory.
 
