@@ -19,6 +19,8 @@ jobs:
           GOOGLE_OAUTH_CONSUMER_SECRET: ${{ secrets.GOOGLE_OAUTH_CONSUMER_SECRET }}
           GOOGLE_OAUTH_REDIRECT_URI: ${{ secrets.GOOGLE_OAUTH_REDIRECT_URI }}
         run: npm install && node ./bin/google/index.cjs
+      - name: set git config
+        run: git config user.email s.w.hart22@gmail.com && git config user.name swhart22
       - name: stage changed files
         run: git add .
       - name: commit changed files
