@@ -38,7 +38,7 @@ jobs:
           mkdir ./.svelte-kit/evictions
           cp -a ./.svelte-kit/cloudflare/. ./.svelte-kit/evictions/
           zip -r ./.svelte-kit/evictions.zip ./.svelte-kit/evictions/
-          mv ./.svelte-kit/eviction.zip ./
+          mv ./.svelte-kit/evictions.zip ./
       - name: set origin
         run: git remote set-url origin https://${{ secrets.GIT_TOKEN }}@github.com/swhart22/iw-evictions-graphics-cf.git
       - name: stage changed files
