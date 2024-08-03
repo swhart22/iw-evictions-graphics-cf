@@ -28,7 +28,7 @@ jobs:
       - name: stage changed files
         run: git add .
       - name: commit changed files
-        run: git commit -m "Republish from Github Action"
+        run: git commit -am "Republish from Github Action"
       - name: fetch from master
         run: git fetch origin main
       - name: push code to main
