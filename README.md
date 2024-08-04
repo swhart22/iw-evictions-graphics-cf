@@ -34,7 +34,7 @@ npm install --global yarn
 git clone https://github.com/swhart22/iw-evictions-graphics-cf
 ```
 
-2. Run yarn to install dependencies. Navigate into this project, then run yarn.
+2. Run yarn to install dependencies. Navigate into this project, then run yarn. Note that you should be using Node 20 here.
 
 ```
 cd [path-to/where-you-cloned-this-repo]/iw-evictions-graphics-cf
@@ -52,7 +52,7 @@ yarn
 
 `yarn google` pulls text from the Google Doc. This may not work, as I'm using my Google config locally so for any text republishes, use the Github action above.
 
-`yarn deploy` deploys the project to my personal cloudflare project
+`yarn deploy` deploys the project to my personal cloudflare project. This also may not work without my personal credentials. If a dev change needs to republish, run yarn stage and overwrite the evictions folder in the Injustice Watch Interactives repository.
 
 `yarn build` creates a static build of the project
 
