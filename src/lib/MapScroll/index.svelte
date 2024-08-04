@@ -57,6 +57,9 @@
             margin-bottom: 50vh;
         }
 
+        &:last-child {
+            padding-bottom: 100vh;
+        }
         .content {
             margin-left: 60vw;
             max-width: 380px;

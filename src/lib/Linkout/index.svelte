@@ -38,7 +38,7 @@
         if (layers && w < breakpoint) {
             
             const activeEl = hovers[index];
-            console.log(activeEl);
+            
             layers.style.transform = `translateX(${transformLayers(activeEl)}px)`;
             const labels = document.querySelectorAll('.building-label');
             labels.forEach((el, i) => {
@@ -108,7 +108,12 @@
                 t.classList.remove('text-active');
             });
         }
-    onMount(() => {
+        onMount(() => {
+        setTimeout(() => {
+                activeBuildingFromIndex(0);
+            }, 500)
+        });
+    $: if (layers) {
         
         const withholdRent = document.querySelector('#withhold-rent polygon');
         const callTheCity = document.querySelector('#call-the-city path');
@@ -159,20 +164,16 @@
             
         });
 
-       setTimeout(() => {
-        activeBuildingFromIndex(0);
-       }, 500)
+    
         
-    });
+    };
    
     function link (el) {
         const linkout = block.Links[el.slug] || 'https://injusticewatch.org';
         window.location.assign(linkout);
     }
-    
-    function initialize () {
-        
-    }
+
+   
     
     
 </script>
@@ -212,7 +213,7 @@
         </div>
     </div>
     
-    <div class="linkout-layers" bind:this={layers} use:initialize>
+    <div class="linkout-layers" bind:this={layers}>
         <img src="{assets}/streetscape/linkout.jpg">
         <img src="{assets}/streetscape/B1.png" class="img-layer withhold-rent">
         <img src="{assets}/streetscape/B2.png" class="img-layer call-the-city">
