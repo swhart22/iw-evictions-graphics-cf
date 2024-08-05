@@ -1,9 +1,8 @@
 <script>
-    import Map from '$lib/StaticMapExport/index.svelte';
     import Carlson from '$lib/ai2svelte/carlson.svelte';
     import { assets } from '$app/paths';
     import Page from '$lib/page.json';
-    const universe = 'carlson';
+    
     const graphicInfo = Page.carlson;
 </script>
 <div class="chatter">
@@ -17,6 +16,7 @@
     :global(html) {
         font-size: 20px;
     }
+    
     .chatter {
         width: 100%;
         h3 {
@@ -40,7 +40,7 @@
     }
     .container {
         max-width: 780px;
-        width: 100%;
+        // width: 100%;
         margin: 0rem auto;
         height: 620px;
     }

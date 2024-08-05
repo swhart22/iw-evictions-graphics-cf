@@ -39,7 +39,6 @@
     }
     .container {
         max-width: 780px;
-        width: 100%;
         margin: 0rem auto;
         height: 620px;
     }
