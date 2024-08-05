@@ -12,7 +12,7 @@
     import Photo from '$lib/Photo/index.svelte';
     import Soundcloud from '$lib/Soundcloud/index.svelte';
     import { onMount } from 'svelte';
-    import { navigating } from '$app/stores'
+    import PhotoDouble from '$lib/PhotoDouble/index.svelte';
     
 
     let ready;
@@ -38,6 +38,8 @@
         <Solutions {block} />
     {:else if block.Type === 'photo'}
         <Photo {block} />
+    {:else if block.Type === 'photo-double'}
+        <PhotoDouble {block} />
     {:else if block.Type === 'soundcloud'}
         <Soundcloud />
     {/if}

@@ -6,16 +6,19 @@
 </script>
 <div class="pad">
     <div class="scroll-bump about-the-data" >
-        {@html marked(block.Text)}
+        
+            {@html marked(block.Text)}
+        
     </div>
 </div>
 <style lang='scss'>
-    
-    .scroll-bump {
+    .pad {
         max-width: 780px;
         width: 100%;
         margin: 1rem auto;
-        background-color: rgba(35, 37, 41, 0.6);
+    }
+    .scroll-bump {
+        background-color: rgba(35, 37, 41, 0.2);
         color: #eaeaea;
         border: 2px solid #232529;
         
@@ -40,4 +43,16 @@
     :global(.about-the-data a) {
         color: #fff;
     }
+    @media screen and (min-width:700px) {
+        .about-the-data
+        {
+            width: 350px;
+            float: right;
+            clear: both;
+            height: 100%;
+            margin-left: 1rem;
+        }
+       
+    }
+
 </style>

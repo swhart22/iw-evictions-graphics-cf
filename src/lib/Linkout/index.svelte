@@ -7,13 +7,15 @@
     import { faPhone, faMoneyBill1, faGavel, faCaretRight, faCaretLeft, faCity } from '@fortawesome/free-solid-svg-icons'
     import { assets } from '$app/paths';
     export let block;
+    export let story;
+    export let embed;
 
     // console.log(block);
 
     const breakpoint = 800;
     let w, layers, hovers, smallLink;
     let activeIndex = 0;
-    let hoverEls = 4;
+    let hoverEls;
 
 
     $: overflow = w < breakpoint; 
@@ -146,7 +148,8 @@
             }
         ];
 
-        
+        hovers = hovers.filter(d => d.slug !== story);
+        hoverEls = hovers.length;
 
         // add links 
         hovers.forEach(el => {
@@ -168,9 +171,11 @@
         
     };
    
+   
     function link (el) {
         const linkout = block.Links[el.slug] || 'https://injusticewatch.org';
-        window.location.assign(linkout);
+       
+        window.open(linkout, '_blank');
     }
 
    
@@ -178,7 +183,7 @@
     
 </script>
 
-<section class="linkout-container" id="options" bind:clientWidth={w} class:overflow={w < breakpoint} class:fullwidth={w >= breakpoint}>
+<section class="linkout-container"  id="options" bind:clientWidth={w} class:overflow={w < breakpoint} class:fullwidth={w >= breakpoint}>
     <div class="chatter">
         <h3>{block.Title}</h3>
         <p class="call-to-action">{block.Dek}</p>
@@ -221,25 +226,25 @@
         <img src="{assets}/streetscape/B4.png" class="img-layer solutions">
         <LinkoutSVG />
         <div class="labels">
-            <div class="building-label withhold-rent" class:small={w < breakpoint}>
+            <div class="building-label withhold-rent" class:small={w < breakpoint} class:embed class:hidden={story === 'withhold-rent'}>
                 <h4><div class="number"><Fa icon={faMoneyBill1} color="#eaeaea" /></div> Withhold rent</h4>
                 <div class="break"></div>
                 <p>{@html marked.parseInline(block.Links['withhold-rent-dek'])} </p>
                 <p class="read-more"><span class="text">Learn more</span><span class="arrow">→</span></p>
             </div>
-            <div class="building-label call-the-city" class:small={w < breakpoint}>
+            <div class="building-label call-the-city" class:small={w < breakpoint} class:embed class:hidden={story === 'call-the-city'}>
                 <h4><div class="number"><Fa icon={faPhone} color="#eaeaea" /></div> Call the city</h4>
                 <div class="break"></div>
                 <p>{@html marked.parseInline(block.Links['call-the-city-dek'])} </p>
                 <p class="read-more"><span class="text">Learn more</span><span class="arrow">→</span></p>
             </div>
-            <div class="building-label sue-the-landlord" class:small={w < breakpoint}>
+            <div class="building-label sue-the-landlord" class:small={w < breakpoint} class:embed class:hidden={story === 'sue-the-landlord'}>
                 <h4><div class="number"><Fa icon={faGavel} color="#eaeaea" /></div> Sue the landlord</h4>
                 <div class="break"></div>
                 <p>{@html marked.parseInline(block.Links['sue-the-landlord-dek'])} </p>
                 <p class="read-more"><span class="text">Learn more</span><span class="arrow">→</span></p>
             </div>
-            <div class="building-label solutions" class:small={w < breakpoint}>
+            <div class="building-label solutions" class:small={w < breakpoint} class:embed class:hidden={story === 'solutions'}>
                 <h4><div class="number"><Fa icon={faCity} color="#eaeaea" /></div> Solutions</h4>
                 <div class="break"></div>
                 <p>{@html marked.parseInline(block.Links['solutions-dek'])}</p>
@@ -259,6 +264,7 @@
     // @import 'svg.scss';
     $iw-orange: #EA6D59;
     $shadow: #544D6F;
+    
     .linkout-container {
         min-height: 414px;
         // max-width: 1100px;
@@ -398,6 +404,24 @@
                     left: auto;
                     right: 4%;
                 }
+
+                &.withhold-rent.small.embed {
+                    top:10px;
+                    left: 2%;
+                }
+                &.call-the-city.small.embed {
+                    top: 10px;
+                    left: 19%;
+                }
+                &.sue-the-landlord.small.embed {
+                    top: 10px;
+                    left: 40%;
+                }
+                &.solutions.small.embed {
+                    top: 10px;
+                    left: auto;
+                    right: 4%;
+                }
                 
 
             }
@@ -498,7 +522,9 @@
             // transform: translateX(-250px);
         }
     }
-
+    .hidden {
+        display: none !important;
+    }
     .prev {
         margin-left: 5px !important;
     }

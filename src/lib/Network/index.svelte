@@ -65,9 +65,12 @@
     :global(#g-network-box) {
         pointer-events: none;
     }
+    :global(.network .g-aiImg) {
+        display: none;
+    }
    
     .container {
-        max-width: 780px;
+        max-width: 775px;
         margin: 0rem auto;
         position: relative;
     }
@@ -163,13 +166,13 @@
         left: 0px;
         display: none;
        
-        @media screen and (min-width:780px) {
+        @media screen and (min-width:775px) {
             &.md {
                 display: block;
             }
             
         }
-        @media screen and (min-width: 510px) and (max-width: 780px) {
+        @media screen and (min-width: 510px) and (max-width: 775px) {
             &.sm {
                 display: block;
             }
