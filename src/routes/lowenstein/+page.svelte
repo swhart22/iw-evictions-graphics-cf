@@ -34,12 +34,12 @@
            margin: 0;
            line-height: 1.3;
            font-weight: 400;
-           
+           margin-bottom: 1rem;
         }
     }
     .container {
-        max-width: 780px;
-        margin: 0rem auto;
-        height: 620px;
+        max-width: 775px;
+        // margin: 0rem auto;
+        // height: 620px;
     }
 </style>

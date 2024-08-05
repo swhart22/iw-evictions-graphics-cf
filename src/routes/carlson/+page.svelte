@@ -2,7 +2,7 @@
     import Carlson from '$lib/ai2svelte/carlson.svelte';
     import { assets } from '$app/paths';
     import Page from '$lib/page.json';
-    
+
     const graphicInfo = Page.carlson;
 </script>
 <div class="chatter">
@@ -35,7 +35,7 @@
            margin: 0;
            line-height: 1.3;
            font-weight: 400;
-           
+           margin-bottom: 1rem;
         }
     }
     .container {
