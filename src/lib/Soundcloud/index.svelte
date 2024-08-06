@@ -1,7 +1,6 @@
 <script>
     export let block;
     let URL = block.URL;
-    console.log(URL);
 </script>
 <div class="soundcloud-container">
     <iframe width="100%" height="200" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url={URL}&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>

@@ -156,7 +156,7 @@
             // add event listeners
             el.el.addEventListener('mouseover', () => hover(el));
             el.el.addEventListener('mouseout', () => mouseout(el));
-            el.el.addEventListener('click', () => link(el));
+            // el.el.addEventListener('click', () => link(el));
             el.el.setAttribute('tabindex', '0');
 
             // text event listeners
@@ -173,9 +173,9 @@
    
    
     function link (el) {
-        const linkout = block.Links[el.slug] || 'https://injusticewatch.org';
+        // const linkout = block.Links[el.slug] || 'https://injusticewatch.org';
        
-        window.open(linkout, '_blank');
+        // window.open(linkout, '_blank');
     }
 
    
@@ -224,36 +224,44 @@
         <img src="{assets}/streetscape/B2.png" class="img-layer call-the-city">
         <img src="{assets}/streetscape/B3.png" class="img-layer sue-the-landlord">
         <img src="{assets}/streetscape/B4.png" class="img-layer solutions">
-        <LinkoutSVG />
+        <LinkoutSVG { block } />
         <div class="labels">
-            <div class="building-label withhold-rent" class:small={w < breakpoint} class:embed class:hidden={story === 'withhold-rent'}>
-                <h4><div class="number"><Fa icon={faMoneyBill1} color="#eaeaea" /></div> Withhold rent</h4>
-                <div class="break"></div>
-                <p>{@html marked.parseInline(block.Links['withhold-rent-dek'])} </p>
-                <p class="read-more"><span class="text">Learn more</span><span class="arrow">→</span></p>
-            </div>
-            <div class="building-label call-the-city" class:small={w < breakpoint} class:embed class:hidden={story === 'call-the-city'}>
-                <h4><div class="number"><Fa icon={faPhone} color="#eaeaea" /></div> Call the city</h4>
-                <div class="break"></div>
-                <p>{@html marked.parseInline(block.Links['call-the-city-dek'])} </p>
-                <p class="read-more"><span class="text">Learn more</span><span class="arrow">→</span></p>
-            </div>
-            <div class="building-label sue-the-landlord" class:small={w < breakpoint} class:embed class:hidden={story === 'sue-the-landlord'}>
-                <h4><div class="number"><Fa icon={faGavel} color="#eaeaea" /></div> Sue the landlord</h4>
-                <div class="break"></div>
-                <p>{@html marked.parseInline(block.Links['sue-the-landlord-dek'])} </p>
-                <p class="read-more"><span class="text">Learn more</span><span class="arrow">→</span></p>
-            </div>
-            <div class="building-label solutions" class:small={w < breakpoint} class:embed class:hidden={story === 'solutions'}>
-                <h4><div class="number"><Fa icon={faCity} color="#eaeaea" /></div> Solutions</h4>
-                <div class="break"></div>
-                <p>{@html marked.parseInline(block.Links['solutions-dek'])}</p>
-                <p class="read-more"><span class="text">Learn more</span><span class="arrow">→</span></p>
-            </div>
+            <a href="{block.Links['withhold-rent']}" target="_blank">
+                <div class="building-label withhold-rent" class:small={w < breakpoint} class:embed class:hidden={story === 'withhold-rent'}>
+                    <h4><div class="number"><Fa icon={faMoneyBill1} color="#eaeaea" /></div> Withhold rent</h4>
+                    <div class="break"></div>
+                    <p>{@html marked.parseInline(block.Links['withhold-rent-dek'])} </p>
+                    <p class="read-more"><span class="text">Learn more</span><span class="arrow">→</span></p>
+                </div>
+            </a>
+            <a href="{block.Links['call-the-city']}" target="_blank">
+                <div class="building-label call-the-city" class:small={w < breakpoint} class:embed class:hidden={story === 'call-the-city'}>
+                    <h4><div class="number"><Fa icon={faPhone} color="#eaeaea" /></div> Call the city</h4>
+                    <div class="break"></div>
+                    <p>{@html marked.parseInline(block.Links['call-the-city-dek'])} </p>
+                    <p class="read-more"><span class="text">Learn more</span><span class="arrow">→</span></p>
+                </div>
+            </a>
+            <a href="{block.Links['sue-the-landlord']}" target="_blank">
+                <div class="building-label sue-the-landlord" class:small={w < breakpoint} class:embed class:hidden={story === 'sue-the-landlord'}>
+                    <h4><div class="number"><Fa icon={faGavel} color="#eaeaea" /></div> Sue the landlord</h4>
+                    <div class="break"></div>
+                    <p>{@html marked.parseInline(block.Links['sue-the-landlord-dek'])} </p>
+                    <p class="read-more"><span class="text">Learn more</span><span class="arrow">→</span></p>
+                </div>
+            </a>
+            <a href="{block.Links['solutions']}" target="_blank">
+                <div class="building-label solutions" class:small={w < breakpoint} class:embed class:hidden={story === 'solutions'}>
+                    <h4><div class="number"><Fa icon={faCity} color="#eaeaea" /></div> Solutions</h4>
+                    <div class="break"></div>
+                    <p>{@html marked.parseInline(block.Links['solutions-dek'])}</p>
+                    <p class="read-more"><span class="text">Learn more</span><span class="arrow">→</span></p>
+                </div>
+            </a>
         </div>
         
     </div>  
-    <a class="small-link" bind:this={smallLink}>
+    <a class="small-link" bind:this={smallLink} target="_blank">
        
     </a>
     {/if}
