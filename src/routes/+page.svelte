@@ -41,7 +41,7 @@
     {:else if block.Type === 'photo-double'}
         <PhotoDouble {block} />
     {:else if block.Type === 'soundcloud'}
-        <Soundcloud />
+        <Soundcloud {block}/>
     {/if}
 {/each}
 

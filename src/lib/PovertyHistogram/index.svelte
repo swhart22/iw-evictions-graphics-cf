@@ -30,6 +30,8 @@
       d.x = +d.x
     });
 
+    console.log(data);
+
     const formatLabelY = (d, i) => {
       const formatted = format(`~s`)(d);
       

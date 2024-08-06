@@ -92,8 +92,8 @@
         {#if tickMarks === true}
           <line
             class="tick-mark"
-            x1={halfBand}
-            x2={halfBand}
+            x1={$xScale.bandwidth()}
+            x2={$xScale.bandwidth()}
             y1={tickGutter}
             y2={tickGutter + tickLen}
           />
