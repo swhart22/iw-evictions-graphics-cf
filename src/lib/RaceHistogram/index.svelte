@@ -59,8 +59,7 @@
           tickMarks={true}
           tickMarkLength={6}
           ticks={[0, 700, 1400]}
-          
-            title="% Black"
+          title="Number of buildings"
         />
         <AxisY
           gridlines= {false}
