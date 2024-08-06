@@ -1,7 +1,6 @@
 <script>
     import { marked } from 'marked';
     export let block;
-    console.log(block);
 </script>
 
 <figure class="body-image-double" class:lead={block.Id === 'lead'}>

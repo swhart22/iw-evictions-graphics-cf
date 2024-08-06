@@ -27,10 +27,12 @@
                     <div class="histogram-container income">
                         <PovertyHistogram />
                     </div>
+                    <p class="source">Source: U.S. Census</p>
                 {:else if gblock.Chart && gblock.Chart === 'race'}
                     <div class="histogram-container race">
                         <RaceHistogram />
                     </div>
+                    <p class="source">Source: U.S. Census</p>
                 {/if}
             </div>
             
@@ -84,6 +86,10 @@
         max-width: 350px;
         display: flex;
         justify-content: center;
+    }
+    .source {
+        font-size: 0.8rem;
+        margin-top: 1.5rem;
     }
     
     :global(.map-section h3) {

@@ -384,6 +384,10 @@
                     top: 15%;
                     left:auto;
                     right: 10%;
+                    @media screen and (max-width:1140px) and (min-width: 800px) 
+                    {
+                        right: 3%;
+                    }
                 }
 
                 
