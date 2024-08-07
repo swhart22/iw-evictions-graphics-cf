@@ -226,7 +226,7 @@
         <img src="{assets}/streetscape/B4.png" class="img-layer solutions">
         <LinkoutSVG { block } />
         <div class="labels">
-            <a href="{block.Links['withhold-rent']}" target="_blank">
+            <a href="{block.Links['withhold-rent']}" target="_parent">
                 <div class="building-label withhold-rent" class:small={w < breakpoint} class:embed class:hidden={story === 'withhold-rent'}>
                     <h4><div class="number"><Fa icon={faMoneyBill1} color="#eaeaea" /></div> Withhold rent</h4>
                     <div class="break"></div>
@@ -234,7 +234,7 @@
                     <p class="read-more"><span class="text">Learn more</span><span class="arrow">→</span></p>
                 </div>
             </a>
-            <a href="{block.Links['call-the-city']}" target="_blank">
+            <a href="{block.Links['call-the-city']}" target="_parent">
                 <div class="building-label call-the-city" class:small={w < breakpoint} class:embed class:hidden={story === 'call-the-city'}>
                     <h4><div class="number"><Fa icon={faPhone} color="#eaeaea" /></div> Call the city</h4>
                     <div class="break"></div>
@@ -242,7 +242,7 @@
                     <p class="read-more"><span class="text">Learn more</span><span class="arrow">→</span></p>
                 </div>
             </a>
-            <a href="{block.Links['sue-the-landlord']}" target="_blank">
+            <a href="{block.Links['sue-the-landlord']}" target="_parent">
                 <div class="building-label sue-the-landlord" class:small={w < breakpoint} class:embed class:hidden={story === 'sue-the-landlord'}>
                     <h4><div class="number"><Fa icon={faGavel} color="#eaeaea" /></div> Sue the landlord</h4>
                     <div class="break"></div>
@@ -250,7 +250,7 @@
                     <p class="read-more"><span class="text">Learn more</span><span class="arrow">→</span></p>
                 </div>
             </a>
-            <a href="{block.Links['solutions']}" target="_blank">
+            <a href="{block.Links['solutions']}" target="_parent">
                 <div class="building-label solutions" class:small={w < breakpoint} class:embed class:hidden={story === 'solutions'}>
                     <h4><div class="number"><Fa icon={faCity} color="#eaeaea" /></div> Solutions</h4>
                     <div class="break"></div>
